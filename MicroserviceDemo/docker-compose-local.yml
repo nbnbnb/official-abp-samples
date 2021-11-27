@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  
+  identity-service:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-identityservice-host'
+    build:
+      context: .
+      dockerfile: microservices/IdentityService.Host/Dockerfile      
+    environment:
+      - ElasticSearch__Url=http://elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - RabbitMQ__Connections__Default__HostName=rabbitmq
+    ports:
+      - 51522:80      
+    depends_on:
+      - elasticsearch
+      - rabbitmq
+      - redis
+      - sqlserver
+  
+
+networks:
+  default:
+    external:
+      name: dev-net  
