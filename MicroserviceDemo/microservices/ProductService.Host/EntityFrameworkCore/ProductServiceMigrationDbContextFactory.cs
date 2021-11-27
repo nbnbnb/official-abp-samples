@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +13,7 @@ namespace ProductService.Host.EntityFrameworkCore
             var configuration = BuildConfiguration();
 
             var builder = new DbContextOptionsBuilder<ProductServiceMigrationDbContext>()
-                .UseSqlServer(configuration.GetConnectionString("ProductManagement"));
+                .UseMySql(configuration.GetConnectionString("ProductManagement"), new MariaDbServerVersion(new Version(10, 6, 5)));
 
             return new ProductServiceMigrationDbContext(builder.Options);
         }

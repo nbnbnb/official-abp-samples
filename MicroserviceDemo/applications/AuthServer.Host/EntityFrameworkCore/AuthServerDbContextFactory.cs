@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -11,8 +12,10 @@ namespace AuthServer.Host.EntityFrameworkCore
         {
             var configuration = BuildConfiguration();
 
+            string connectionString = configuration.GetConnectionString("Default");
+
             var builder = new DbContextOptionsBuilder<AuthServerDbContext>()
-                .UseSqlServer(configuration.GetConnectionString("Default"));
+                .UseMySql(connectionString, new MariaDbServerVersion(new Version(10, 6, 5)));
 
             return new AuthServerDbContext(builder.Options);
         }
