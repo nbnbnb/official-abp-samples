@@ -16,13 +16,8 @@ services:
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
     ports:
-      - 51522:80      
-    depends_on:
-      - elasticsearch
-      - rabbitmq
-      - redis
-      - sqlserver
-  
+      - 51522:80
+      
 networks:
   default:
     external:
