@@ -17,7 +17,8 @@ services:
 
   elasticsearch:
     environment:
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx1024m"
+      - "discovery.type=single-node"
     ports:
       - "9200:9200"
 
@@ -31,3 +32,8 @@ services:
   kibana:
     ports:
       - 51510:5601
+
+networks:
+  default:
+    external:
+      name: dev-net  

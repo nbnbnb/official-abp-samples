@@ -23,7 +23,6 @@ services:
       - redis
       - sqlserver
   
-
 networks:
   default:
     external:
