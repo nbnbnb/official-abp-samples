@@ -74,7 +74,7 @@ services:
       - AuthServer__Authority=http://auth-server:51511
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
-      - ConnectionStrings__Blogging=mongodb://admin:kkking@mongodb/MsDemo_Blogging?authSource=admin
+      - ConnectionStrings__Blogging=mongodb://admin:kkking@mongo:27017/MsDemo_Blogging?authSource=admin
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
