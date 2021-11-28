@@ -28,7 +28,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata="false"
+      - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
@@ -46,7 +46,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata="false"
+      - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
@@ -64,7 +64,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata="false"
+      - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - ConnectionStrings__Blogging=mongodb://mongodb/MsDemo_Blogging
       - Redis__Configuration=redis
@@ -72,7 +72,7 @@ services:
       - RabbitMQ__Connections__Default__Port=5672
       - RemoteServices__Default__BaseUrl=http://internal-gateway/
       - IdentityClients__Authority=http://auth-server:51511
-      - IdentityClients__RequireHttpsMetadata="false"
+      - IdentityClients__RequireHttpsMetadata=false
     ports:
       - 51521:80
 
@@ -87,7 +87,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata="false"
+      - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - ConnectionStrings__ProductManagement=Server=zhangjin.dev;Port=13306;Database=ABPDemo_ProductManagement;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
@@ -111,7 +111,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata="false"
+      - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - ReRoutes__0__DownstreamHostAndPorts__0__Host=identity-service
@@ -145,7 +145,7 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
       - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata="false"
+      - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - ReRoutes__0__DownstreamHostAndPorts__0__Host=identity-service
@@ -174,7 +174,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata="false"
+      - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - ReRoutes__0__DownstreamHostAndPorts__0__Host=product-service
@@ -199,7 +199,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata="false"
+      - AuthServer__RequireHttpsMetadata=false
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
       - Redis__Configuration=redis
     ports:
@@ -217,7 +217,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata="false"
+      - AuthServer__RequireHttpsMetadata=false
       - RemoteServices__Default__BaseUrl=http://public-website-gateway/
       - Redis__Configuration=redis
     ports:
