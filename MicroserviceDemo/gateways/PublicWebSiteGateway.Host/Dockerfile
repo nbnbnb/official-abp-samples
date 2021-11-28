@@ -19,5 +19,10 @@ RUN dotnet publish "PublicWebSiteGateway.Host.csproj" --no-restore -nowarn:msb32
 
 FROM base AS final
 WORKDIR /app
+
+# Change timezone to local time
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "PublicWebSiteGateway.Host.dll"]
