@@ -13,7 +13,7 @@ services:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:51511
-      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
@@ -33,7 +33,7 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
       - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
@@ -53,7 +53,7 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
       - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
@@ -73,7 +73,7 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
       - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - ConnectionStrings__Blogging=mongodb://admin:kkking@mongo:27017/MsDemo_Blogging?authSource=admin
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
@@ -97,7 +97,7 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
       - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - ConnectionStrings__ProductManagement=Server=zhangjin.dev;Port=13306;Database=ABPDemo_ProductManagement;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
@@ -123,7 +123,7 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
       - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - ReRoutes__0__DownstreamHostAndPorts__0__Host=identity-service
       - ReRoutes__0__DownstreamHostAndPorts__0__Port=80
@@ -159,7 +159,7 @@ services:
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
       - AuthServer__Authority=http://auth-server:51511
       - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - ReRoutes__0__DownstreamHostAndPorts__0__Host=identity-service
       - ReRoutes__0__DownstreamHostAndPorts__0__Port=80
@@ -190,7 +190,7 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
       - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - ReRoutes__0__DownstreamHostAndPorts__0__Host=product-service
       - ReRoutes__0__DownstreamHostAndPorts__0__Port=80
