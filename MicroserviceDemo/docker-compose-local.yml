@@ -225,4 +225,5 @@ services:
       
 networks:
   default:
-      name: dev-net  
+    external:
+      name: dev-net
