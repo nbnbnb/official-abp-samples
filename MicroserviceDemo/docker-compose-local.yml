@@ -8,7 +8,7 @@ services:
       context: .
       dockerfile: applications/AuthServer.Host/Dockerfile
     environment:
-      - ElasticSearch__Url=http://elasticsearch:9200
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:51511
       - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
@@ -24,7 +24,7 @@ services:
       context: .
       dockerfile: microservices/IdentityService.Host/Dockerfile      
     environment:
-      - ElasticSearch__Url=http://elasticsearch:9200
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
@@ -42,7 +42,7 @@ services:
       context: .
       dockerfile: microservices/TenantManagementService.Host/Dockerfile
     environment:
-      - ElasticSearch__Url=http://elasticsearch:9200
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
@@ -60,7 +60,7 @@ services:
       context: .
       dockerfile: microservices/BloggingService.Host/Dockerfile
     environment:
-      - ElasticSearch__Url=http://elasticsearch:9200
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
@@ -83,7 +83,7 @@ services:
       context: .
       dockerfile: microservices/ProductService.Host/Dockerfile
     environment:
-      - ElasticSearch__Url=http://elasticsearch:9200
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
@@ -107,7 +107,7 @@ services:
       - blogging-service
       - tenant-management-service
     environment:
-      - ElasticSearch__Url=http://elasticsearch:9200
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
@@ -140,7 +140,7 @@ services:
       - product-service
       - tenant-management-service
     environment:
-      - ElasticSearch__Url=http://elasticsearch:9200
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
@@ -170,7 +170,7 @@ services:
       - blogging-service
       - product-service
     environment:
-      - ElasticSearch__Url=http://elasticsearch:9200
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
@@ -195,7 +195,7 @@ services:
     depends_on:
       - backend-admin-app-gateway
     environment:
-      - ElasticSearch__Url=http://elasticsearch:9200
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511
@@ -213,7 +213,7 @@ services:
     depends_on:
       - public-website-gateway
     environment:
-      - ElasticSearch__Url=http://elasticsearch:9200
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=http://auth-server:51511

@@ -34,6 +34,7 @@ namespace AuthServer.Host
                         AutoRegisterTemplate = true,
                         AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
                         IndexFormat = "msdemo-log-{0:yyyy.MM}"
+                        //ModifyConnectionSettings = x => x.BasicAuthentication("elastic", "elastic...")
                     })
                 .CreateLogger();
 
