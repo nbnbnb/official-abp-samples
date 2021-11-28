@@ -166,7 +166,6 @@ services:
       context: .
       dockerfile: applications/BackendAdminApp.Host/Dockerfile
     depends_on:
-      - elasticsearch
       - backend-admin-app-gateway
     environment:
       - ElasticSearch__Url=http://elasticsearch:9200
@@ -184,7 +183,6 @@ services:
       context: .
       dockerfile: applications/PublicWebSite.Host/Dockerfile
     depends_on:
-      - elasticsearch
       - public-website-gateway
     environment:
       - ElasticSearch__Url=http://elasticsearch:9200
