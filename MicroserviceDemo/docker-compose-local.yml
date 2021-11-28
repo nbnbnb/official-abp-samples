@@ -98,7 +98,7 @@ services:
       - AuthServer__Authority=http://auth-server:51511
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
-      - ConnectionStrings__ProductManagement=Server=zhangjin.dev;Port=13306;Database=ABPDemo_ProductManagement;Uid=boot;Pwd=boot;
+      - ConnectionStrings__ProductManagement=Server=mariadb;Port=3306;Database=ABPDemo_ProductManagement;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
