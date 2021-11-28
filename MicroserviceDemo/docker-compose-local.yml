@@ -111,7 +111,7 @@ services:
       - ReRoutes__3__DownstreamHostAndPorts__0__Port=80
       - GlobalConfiguration__BaseUrl=http://internal-gateway
     ports:
-      - 51524:80
+      - 51324:80
 
   backend-admin-app-gateway:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminappgateway-host'
