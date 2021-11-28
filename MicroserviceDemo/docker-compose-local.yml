@@ -14,6 +14,7 @@ services:
       - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
+      - RabbitMQ__Connections__Default__Port=5672
     ports:
       - 51511:51511
 
@@ -30,6 +31,7 @@ services:
       - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
+      - RabbitMQ__Connections__Default__Port=5672
     ports:
       - 51522:80
 
@@ -46,6 +48,7 @@ services:
       - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
+      - RabbitMQ__Connections__Default__Port=5672
     ports:
       - 51524:80
 
@@ -63,6 +66,7 @@ services:
       - ConnectionStrings__Blogging=mongodb://mongodb/MsDemo_Blogging
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
+      - RabbitMQ__Connections__Default__Port=5672
       - RemoteServices__Default__BaseUrl=http://internal-gateway/
     ports:
       - 51521:80
@@ -82,6 +86,7 @@ services:
       - ConnectionStrings__ProductManagement=Server=zhangjin.dev;Port=13306;Database=ABPDemo_ProductManagement;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
+      - RabbitMQ__Connections__Default__Port=5672
     ports:
       - 51523:80
 
