@@ -32,6 +32,169 @@ services:
       - RabbitMQ__Connections__Default__HostName=rabbitmq
     ports:
       - 51522:80
+
+  tenant-management-service:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-tenantmanagementservice-host'
+    build:
+      context: .
+      dockerfile: microservices/TenantManagementService.Host/Dockerfile
+    environment:
+      - ElasticSearch__Url=http://elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - RabbitMQ__Connections__Default__HostName=rabbitmq
+    ports:
+      - 51524:80
+
+  blogging-service:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-bloggingservice-host'
+    build:
+      context: .
+      dockerfile: microservices/BloggingService.Host/Dockerfile
+    environment:
+      - ElasticSearch__Url=http://elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - ConnectionStrings__Blogging=mongodb://mongodb/MsDemo_Blogging
+      - Redis__Configuration=redis
+      - RabbitMQ__Connections__Default__HostName=rabbitmq
+      - RemoteServices__Default__BaseUrl=http://internal-gateway/
+    ports:
+      - 51521:80
+
+  
+  product-service:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-productservice-host'
+    build:
+      context: .
+      dockerfile: microservices/ProductService.Host/Dockerfile
+    environment:
+      - ElasticSearch__Url=http://elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - ConnectionStrings__ProductManagement=Server=zhangjin.dev;Port=13306;Database=ABPDemo_ProductManagement;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - RabbitMQ__Connections__Default__HostName=rabbitmq
+    ports:
+      - 51523:80
+
+  internal-gateway:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-tnternalgateway-host'
+    build:
+      context: .
+      dockerfile: gateways/InternalGateway.Host/Dockerfile
+    depends_on:
+      - identity-service
+      - product-service
+      - blogging-service
+    environment:
+      - ElasticSearch__Url=http://elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - ReRoutes__0__DownstreamHostAndPorts__0__Host=identity-service
+      - ReRoutes__0__DownstreamHostAndPorts__0__Port=80
+      - ReRoutes__1__DownstreamHostAndPorts__0__Host=product-service
+      - ReRoutes__1__DownstreamHostAndPorts__0__Port=80
+      - ReRoutes__2__DownstreamHostAndPorts__0__Host=blogging-service
+      - ReRoutes__2__DownstreamHostAndPorts__0__Port=80
+      - ReRoutes__3__DownstreamHostAndPorts__0__Host=tenant-management-service
+      - ReRoutes__3__DownstreamHostAndPorts__0__Port=80
+      - GlobalConfiguration__BaseUrl=http://internal-gateway
+    ports:
+      - 51524:80
+
+  backend-admin-app-gateway:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminappgateway-host'
+    build:
+      context: .
+      dockerfile: gateways/BackendAdminAppGateway.Host/Dockerfile
+    depends_on:
+      - identity-service
+      - product-service
+    environment:
+      - ElasticSearch__Url=http://elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
+      - AuthServer__Authority=http://auth-server:51511
+      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - ReRoutes__0__DownstreamHostAndPorts__0__Host=identity-service
+      - ReRoutes__0__DownstreamHostAndPorts__0__Port=80
+      - ReRoutes__1__DownstreamHostAndPorts__0__Host=product-service
+      - ReRoutes__1__DownstreamHostAndPorts__0__Port=80
+      - GlobalConfiguration__BaseUrl=http://backend-admin-app-gateway
+    ports:
+      - 51531:80
+
+  public-website-gateway:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-publicwebsitegateway-host'
+    build:
+      context: .
+      dockerfile: gateways/PublicWebSiteGateway.Host/Dockerfile
+    depends_on:
+      - blogging-service
+      - product-service
+    environment:
+      - ElasticSearch__Url=http://elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - ConnectionStrings__Default=Server=zhangjin.dev;Port=13306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - ReRoutes__0__DownstreamHostAndPorts__0__Host=product-service
+      - ReRoutes__0__DownstreamHostAndPorts__0__Port=80
+      - ReRoutes__1__DownstreamHostAndPorts__0__Host=blogging-service
+      - ReRoutes__1__DownstreamHostAndPorts__0__Port=80
+      - GlobalConfiguration__BaseUrl=http://public-website-gateway
+    ports:
+      - 51532:80
+
+  backend-admin-app:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host'
+    build:
+      context: .
+      dockerfile: applications/BackendAdminApp.Host/Dockerfile
+    depends_on:
+      - elasticsearch
+      - backend-admin-app-gateway
+    environment:
+      - ElasticSearch__Url=http://elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
+      - Redis__Configuration=redis
+    ports:
+      - 51512:80
+  
+  public-website:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-publicwebsite-host'
+    build:
+      context: .
+      dockerfile: applications/PublicWebSite.Host/Dockerfile
+    depends_on:
+      - elasticsearch
+      - public-website-gateway
+    environment:
+      - ElasticSearch__Url=http://elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - RemoteServices__Default__BaseUrl=http://public-website-gateway/
+      - Redis__Configuration=redis
+    ports:
+      - 51513:80
       
 networks:
   default:
