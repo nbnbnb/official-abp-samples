@@ -17,7 +17,7 @@ using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
 using Volo.Abp.Autofac;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.SqlServer;
+using Volo.Abp.EntityFrameworkCore.MySQL;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
@@ -31,7 +31,7 @@ namespace PublicWebSiteGateway.Host
         typeof(AbpAutofacModule),
         typeof(BloggingHttpApiModule),
         typeof(ProductManagementHttpApiModule),
-        typeof(AbpEntityFrameworkCoreSqlServerModule),
+        typeof(AbpEntityFrameworkCoreMySQLModule),
         typeof(AbpPermissionManagementEntityFrameworkCoreModule),
         typeof(AbpSettingManagementEntityFrameworkCoreModule),
         typeof(AbpAspNetCoreMvcUiMultiTenancyModule)
@@ -66,7 +66,7 @@ namespace PublicWebSiteGateway.Host
 
             Configure<AbpDbContextOptions>(options =>
             {
-                options.UseSqlServer();
+                options.UseMySQL();
             });
 
             context.Services.AddStackExchangeRedisCache(options =>

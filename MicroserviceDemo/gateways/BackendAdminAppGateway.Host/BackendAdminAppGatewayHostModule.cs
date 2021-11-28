@@ -17,7 +17,7 @@ using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
 using Volo.Abp.Autofac;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.SqlServer;
+using Volo.Abp.EntityFrameworkCore.MySQL;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Http.Client.IdentityModel.Web;
@@ -42,7 +42,7 @@ namespace BackendAdminAppGateway.Host
         typeof(AbpIdentityHttpApiModule),
         typeof(AbpIdentityHttpApiClientModule),
         typeof(ProductManagementHttpApiModule),
-        typeof(AbpEntityFrameworkCoreSqlServerModule),
+        typeof(AbpEntityFrameworkCoreMySQLModule),
         typeof(AbpPermissionManagementEntityFrameworkCoreModule),
         typeof(AbpPermissionManagementApplicationModule),
         typeof(AbpPermissionManagementHttpApiModule),
@@ -90,7 +90,7 @@ namespace BackendAdminAppGateway.Host
 
             Configure<AbpDbContextOptions>(options =>
             {
-                options.UseSqlServer();
+                options.UseMySQL();
             });
 
             context.Services.AddStackExchangeRedisCache(options =>
