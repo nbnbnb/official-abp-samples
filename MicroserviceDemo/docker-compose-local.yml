@@ -7,6 +7,8 @@ services:
     build:
       context: .
       dockerfile: applications/AuthServer.Host/Dockerfile
+    volumes:
+      - auth-server-log:/app/Logs
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
@@ -23,6 +25,8 @@ services:
     build:
       context: .
       dockerfile: microservices/IdentityService.Host/Dockerfile      
+    volumes:
+      - identity-service-log:/app/Logs
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
@@ -41,6 +45,8 @@ services:
     build:
       context: .
       dockerfile: microservices/TenantManagementService.Host/Dockerfile
+    volumes:
+      - tenant-management-service-log:/app/Logs
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
@@ -59,6 +65,8 @@ services:
     build:
       context: .
       dockerfile: microservices/BloggingService.Host/Dockerfile
+    volumes:
+      - blogging-service-log:/app/Logs
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
@@ -76,12 +84,13 @@ services:
     ports:
       - 51521:80
 
-  
   product-service:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-productservice-host'
     build:
       context: .
       dockerfile: microservices/ProductService.Host/Dockerfile
+    volumes:
+      - product-service-log:/app/Logs
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
@@ -101,6 +110,8 @@ services:
     build:
       context: .
       dockerfile: gateways/InternalGateway.Host/Dockerfile
+    volumes:
+      - internal-gateway-log:/app/Logs
     depends_on:
       - identity-service
       - product-service
@@ -135,6 +146,8 @@ services:
     build:
       context: .
       dockerfile: gateways/BackendAdminAppGateway.Host/Dockerfile
+    volumes:
+      - backend-admin-app-gateway-log:/app/Logs
     depends_on:
       - identity-service
       - product-service
@@ -166,6 +179,8 @@ services:
     build:
       context: .
       dockerfile: gateways/PublicWebSiteGateway.Host/Dockerfile
+    volumes:
+      - public-website-gateway-log:/app/Logs
     depends_on:
       - blogging-service
       - product-service
@@ -192,6 +207,8 @@ services:
     build:
       context: .
       dockerfile: applications/BackendAdminApp.Host/Dockerfile
+    volumes:
+      - backend-admin-app-log:/app/Logs
     depends_on:
       - backend-admin-app-gateway
     environment:
@@ -210,6 +227,8 @@ services:
     build:
       context: .
       dockerfile: applications/PublicWebSite.Host/Dockerfile
+    volumes:
+      - public-website-log:/app/Logs
     depends_on:
       - public-website-gateway
     environment:
@@ -227,3 +246,16 @@ networks:
   default:
     external:
       name: dev-net
+
+volumes:
+  auth-server-log:
+  identity-service-log:
+  tenant-management-service-log:
+  blogging-service-log:
+  product-service-log:
+  internal-gateway-log:
+  backend-admin-app-gateway-log:
+  public-website-gateway-log:
+  backend-admin-app-log:
+  public-website-log:
+
