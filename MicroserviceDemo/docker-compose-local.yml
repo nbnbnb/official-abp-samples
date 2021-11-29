@@ -106,7 +106,7 @@ services:
       - 51523:80
 
   internal-gateway:
-    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-tnternalgateway-host'
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-internalgateway-host'
     build:
       context: .
       dockerfile: gateways/InternalGateway.Host/Dockerfile
