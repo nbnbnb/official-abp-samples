@@ -37,6 +37,7 @@ using Volo.Blogging.Blogs;
 using Volo.Blogging.Files;
 using Volo.Blogging.MongoDB;
 using Volo.Abp.Uow;
+using Volo.Abp.BlobStoring.FileSystem;
 
 namespace BloggingService.Host
 {
@@ -54,7 +55,8 @@ namespace BloggingService.Host
         typeof(AbpHttpClientIdentityModelWebModule),
         typeof(AbpIdentityHttpApiClientModule),
         typeof(AbpAspNetCoreMultiTenancyModule),
-        typeof(AbpTenantManagementEntityFrameworkCoreModule)
+        typeof(AbpTenantManagementEntityFrameworkCoreModule),
+        typeof(AbpBlobStoringFileSystemModule)
         )]
     public class BloggingServiceHostModule : AbpModule
     {
