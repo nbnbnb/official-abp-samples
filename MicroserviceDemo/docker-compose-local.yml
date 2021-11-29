@@ -125,18 +125,18 @@ services:
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
-      - ReRoutes__0__DownstreamHostAndPorts__0__Host=identity-service
-      - ReRoutes__0__DownstreamHostAndPorts__0__Port=80
-      - ReRoutes__0__DownstreamHostAndPorts__0__DownstreamScheme=http
-      - ReRoutes__1__DownstreamHostAndPorts__0__Host=tenant-management-service
-      - ReRoutes__1__DownstreamHostAndPorts__0__Port=80
-      - ReRoutes__1__DownstreamHostAndPorts__0__DownstreamScheme=http
-      - ReRoutes__2__DownstreamHostAndPorts__0__Host=product-service
-      - ReRoutes__2__DownstreamHostAndPorts__0__Port=80
-      - ReRoutes__2__DownstreamHostAndPorts__0__DownstreamScheme=http
-      - ReRoutes__3__DownstreamHostAndPorts__0__Host=blogging-service
-      - ReRoutes__3__DownstreamHostAndPorts__0__Port=80
-      - ReRoutes__3__DownstreamHostAndPorts__0__DownstreamScheme=http
+      - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
+      - Routes__0__DownstreamHostAndPorts__0__Port=80
+      - Routes__0__DownstreamScheme=http
+      - Routes__1__DownstreamHostAndPorts__0__Host=tenant-management-service
+      - Routes__1__DownstreamHostAndPorts__0__Port=80
+      - Routes__1__DownstreamScheme=http
+      - Routes__2__DownstreamHostAndPorts__0__Host=product-service
+      - Routes__2__DownstreamHostAndPorts__0__Port=80
+      - Routes__2__DownstreamScheme=http
+      - Routes__3__DownstreamHostAndPorts__0__Host=blogging-service
+      - Routes__3__DownstreamHostAndPorts__0__Port=80
+      - Routes__3__DownstreamScheme=http
       - GlobalConfiguration__BaseUrl=http://internal-gateway
     ports:
       - 51324:80
@@ -161,15 +161,15 @@ services:
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
-      - ReRoutes__0__DownstreamHostAndPorts__0__Host=identity-service
-      - ReRoutes__0__DownstreamHostAndPorts__0__Port=80
-      - ReRoutes__0__DownstreamHostAndPorts__0__DownstreamScheme=http
-      - ReRoutes__1__DownstreamHostAndPorts__0__Host=tenant-management-service
-      - ReRoutes__1__DownstreamHostAndPorts__0__Port=80
-      - ReRoutes__1__DownstreamHostAndPorts__0__DownstreamScheme=http
-      - ReRoutes__2__DownstreamHostAndPorts__0__Host=product-service
-      - ReRoutes__2__DownstreamHostAndPorts__0__Port=80
-      - ReRoutes__2__DownstreamHostAndPorts__0__DownstreamScheme=http
+      - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
+      - Routes__0__DownstreamHostAndPorts__0__Port=80
+      - Routes__0__DownstreamScheme=http
+      - Routes__1__DownstreamHostAndPorts__0__Host=tenant-management-service
+      - Routes__1__DownstreamHostAndPorts__0__Port=80
+      - Routes__1__DownstreamScheme=http
+      - Routes__2__DownstreamHostAndPorts__0__Host=product-service
+      - Routes__2__DownstreamHostAndPorts__0__Port=80
+      - Routes__2__DownstreamScheme=http
       - GlobalConfiguration__BaseUrl=http://backend-admin-app-gateway
     ports:
       - 51531:80
@@ -192,12 +192,12 @@ services:
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
-      - ReRoutes__0__DownstreamHostAndPorts__0__Host=product-service
-      - ReRoutes__0__DownstreamHostAndPorts__0__Port=80
-      - ReRoutes__0__DownstreamHostAndPorts__0__DownstreamScheme=http
-      - ReRoutes__1__DownstreamHostAndPorts__0__Host=blogging-service
-      - ReRoutes__1__DownstreamHostAndPorts__0__Port=80
-      - ReRoutes__1__DownstreamHostAndPorts__0__DownstreamScheme=http
+      - Routes__0__DownstreamHostAndPorts__0__Host=product-service
+      - Routes__0__DownstreamHostAndPorts__0__Port=80
+      - Routes__0__DownstreamScheme=http
+      - Routes__1__DownstreamHostAndPorts__0__Host=blogging-service
+      - Routes__1__DownstreamHostAndPorts__0__Port=80
+      - Routes__1__DownstreamScheme=http
       - GlobalConfiguration__BaseUrl=http://public-website-gateway
     ports:
       - 51532:80
