@@ -41,38 +41,10 @@
     <None Remove="Logs\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="wwwroot\product-images\*.jpg" />
-    <Content Remove="wwwroot\product-images\*.jpg" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="wwwroot\*" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Remove="wwwroot\product-images\asus.jpg" />
-    <EmbeddedResource Remove="wwwroot\product-images\beats.jpg" />
-    <EmbeddedResource Remove="wwwroot\product-images\bluecat.jpg" />
-    <EmbeddedResource Remove="wwwroot\product-images\lego.jpg" />
-    <EmbeddedResource Remove="wwwroot\product-images\nikon.jpg" />
-    <EmbeddedResource Remove="wwwroot\product-images\noimage.jpg" />
-    <EmbeddedResource Remove="wwwroot\product-images\oki.jpg" />
-    <EmbeddedResource Remove="wwwroot\product-images\playstation.jpg" />
-    <EmbeddedResource Remove="wwwroot\product-images\rampage.jpg" />
-    <EmbeddedResource Remove="wwwroot\product-images\sunny.jpg" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="wwwroot\product-images\asus.jpg" />
-    <Content Include="wwwroot\product-images\bluecat.jpg" />
-    <Content Include="wwwroot\product-images\lego.jpg" />
-    <Content Include="wwwroot\product-images\nikon.jpg" />
-    <Content Include="wwwroot\product-images\noimage.jpg" />
-    <Content Include="wwwroot\product-images\oki.jpg" />
-    <Content Include="wwwroot\product-images\playstation.jpg" />
-    <Content Include="wwwroot\product-images\rampage.jpg" />
-    <Content Include="wwwroot\product-images\sunny.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Include="wwwroot\product-images\beats.jpg" />
-  </ItemGroup>
 
 </Project>
