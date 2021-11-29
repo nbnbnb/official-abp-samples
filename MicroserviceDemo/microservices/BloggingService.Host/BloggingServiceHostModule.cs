@@ -97,6 +97,17 @@ namespace BloggingService.Host
                 options.UseMySQL();
             });
 
+            Configure<AbpBlobStoringOptions>(options =>
+            {
+                options.Containers.ConfigureDefault(container =>
+                {
+                    container.UseFileSystem(fileSystem =>
+                    {
+
+                    });
+                });
+            });
+
             Configure<BlogFileOptions>(options =>
             {
                 options.FileUploadLocalFolder = Path.Combine(hostingEnvironment.WebRootPath, "files");
