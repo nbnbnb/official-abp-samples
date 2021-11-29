@@ -38,6 +38,7 @@ using Volo.Blogging.Files;
 using Volo.Blogging.MongoDB;
 using Volo.Abp.Uow;
 using Volo.Abp.BlobStoring.FileSystem;
+using Volo.Abp.BlobStoring;
 
 namespace BloggingService.Host
 {
@@ -56,7 +57,8 @@ namespace BloggingService.Host
         typeof(AbpIdentityHttpApiClientModule),
         typeof(AbpAspNetCoreMultiTenancyModule),
         typeof(AbpTenantManagementEntityFrameworkCoreModule),
-        typeof(AbpBlobStoringFileSystemModule)
+        typeof(AbpBlobStoringFileSystemModule),
+        typeof(AbpBlobStoringModule)
         )]
     public class BloggingServiceHostModule : AbpModule
     {
@@ -80,7 +82,7 @@ namespace BloggingService.Host
 
             context.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Blogging Service API", Version = "v1"});
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Blogging Service API", Version = "v1" });
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });
