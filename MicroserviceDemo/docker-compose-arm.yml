@@ -1,0 +1,261 @@
+version: '3.7'
+
+services:
+  
+  auth-server:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-authserver-host'
+    build:
+      context: .
+      dockerfile: applications/AuthServer.Host/Dockerfile
+    volumes:
+      - auth-server-log:/app/Logs
+    environment:
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:51511
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - RabbitMQ__Connections__Default__HostName=rabbitmq
+      - RabbitMQ__Connections__Default__Port=5672
+    ports:
+      - 51511:51511
+
+  identity-service:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-identityservice-host'
+    build:
+      context: .
+      dockerfile: microservices/IdentityService.Host/Dockerfile      
+    volumes:
+      - identity-service-log:/app/Logs
+    environment:
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__RequireHttpsMetadata=false
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - RabbitMQ__Connections__Default__HostName=rabbitmq
+      - RabbitMQ__Connections__Default__Port=5672
+    ports:
+      - 51522:80
+
+  tenant-management-service:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-tenantmanagementservice-host'
+    build:
+      context: .
+      dockerfile: microservices/TenantManagementService.Host/Dockerfile
+    volumes:
+      - tenant-management-service-log:/app/Logs
+    environment:
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__RequireHttpsMetadata=false
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - RabbitMQ__Connections__Default__HostName=rabbitmq
+      - RabbitMQ__Connections__Default__Port=5672
+    ports:
+      - 51524:80
+
+  blogging-service:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-bloggingservice-host'
+    build:
+      context: .
+      dockerfile: microservices/BloggingService.Host/Dockerfile
+    volumes:
+      - blogging-service-log:/app/Logs
+    environment:
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__RequireHttpsMetadata=false
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - ConnectionStrings__Blogging=mongodb://admin:kkking@mongo:27017/MsDemo_Blogging?authSource=admin
+      - Redis__Configuration=redis
+      - RabbitMQ__Connections__Default__HostName=rabbitmq
+      - RabbitMQ__Connections__Default__Port=5672
+      - RemoteServices__Default__BaseUrl=http://internal-gateway/
+      - IdentityClients__Authority=http://auth-server:51511
+      - IdentityClients__RequireHttpsMetadata=false
+    ports:
+      - 51521:80
+
+  product-service:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-productservice-host'
+    build:
+      context: .
+      dockerfile: microservices/ProductService.Host/Dockerfile
+    volumes:
+      - product-service-log:/app/Logs
+    environment:
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__RequireHttpsMetadata=false
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - ConnectionStrings__ProductManagement=Server=mariadb;Port=3306;Database=ABPDemo_ProductManagement;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - RabbitMQ__Connections__Default__HostName=rabbitmq
+      - RabbitMQ__Connections__Default__Port=5672
+    ports:
+      - 51523:80
+
+  internal-gateway:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-internalgateway-host'
+    build:
+      context: .
+      dockerfile: gateways/InternalGateway.Host/Dockerfile
+    volumes:
+      - internal-gateway-log:/app/Logs
+    depends_on:
+      - identity-service
+      - product-service
+      - blogging-service
+      - tenant-management-service
+    environment:
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__RequireHttpsMetadata=false
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
+      - Routes__0__DownstreamHostAndPorts__0__Port=80
+      - Routes__0__DownstreamScheme=http
+      - Routes__1__DownstreamHostAndPorts__0__Host=tenant-management-service
+      - Routes__1__DownstreamHostAndPorts__0__Port=80
+      - Routes__1__DownstreamScheme=http
+      - Routes__2__DownstreamHostAndPorts__0__Host=product-service
+      - Routes__2__DownstreamHostAndPorts__0__Port=80
+      - Routes__2__DownstreamScheme=http
+      - Routes__3__DownstreamHostAndPorts__0__Host=blogging-service
+      - Routes__3__DownstreamHostAndPorts__0__Port=80
+      - Routes__3__DownstreamScheme=http
+      - GlobalConfiguration__BaseUrl=http://internal-gateway
+    ports:
+      - 51324:80
+
+  backend-admin-app-gateway:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminappgateway-host'
+    build:
+      context: .
+      dockerfile: gateways/BackendAdminAppGateway.Host/Dockerfile
+    volumes:
+      - backend-admin-app-gateway-log:/app/Logs
+    depends_on:
+      - identity-service
+      - product-service
+      - tenant-management-service
+    environment:
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
+      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__RequireHttpsMetadata=false
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
+      - Routes__0__DownstreamHostAndPorts__0__Port=80
+      - Routes__0__DownstreamScheme=http
+      - Routes__1__DownstreamHostAndPorts__0__Host=tenant-management-service
+      - Routes__1__DownstreamHostAndPorts__0__Port=80
+      - Routes__1__DownstreamScheme=http
+      - Routes__2__DownstreamHostAndPorts__0__Host=product-service
+      - Routes__2__DownstreamHostAndPorts__0__Port=80
+      - Routes__2__DownstreamScheme=http
+      - GlobalConfiguration__BaseUrl=http://backend-admin-app-gateway
+    ports:
+      - 51531:80
+
+  public-website-gateway:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-publicwebsitegateway-host'
+    build:
+      context: .
+      dockerfile: gateways/PublicWebSiteGateway.Host/Dockerfile
+    volumes:
+      - public-website-gateway-log:/app/Logs
+    depends_on:
+      - blogging-service
+      - product-service
+    environment:
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__RequireHttpsMetadata=false
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - Routes__0__DownstreamHostAndPorts__0__Host=product-service
+      - Routes__0__DownstreamHostAndPorts__0__Port=80
+      - Routes__0__DownstreamScheme=http
+      - Routes__1__DownstreamHostAndPorts__0__Host=blogging-service
+      - Routes__1__DownstreamHostAndPorts__0__Port=80
+      - Routes__1__DownstreamScheme=http
+      - GlobalConfiguration__BaseUrl=http://public-website-gateway
+    ports:
+      - 51532:80
+
+  backend-admin-app:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host'
+    build:
+      context: .
+      dockerfile: applications/BackendAdminApp.Host/Dockerfile
+    volumes:
+      - backend-admin-app-log:/app/Logs
+    depends_on:
+      - backend-admin-app-gateway
+    environment:
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__RequireHttpsMetadata=false
+      - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
+      - Redis__Configuration=redis
+    ports:
+      - 51512:80
+  
+  public-website:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-publicwebsite-host'
+    build:
+      context: .
+      dockerfile: applications/PublicWebSite.Host/Dockerfile
+    volumes:
+      - public-website-log:/app/Logs
+    depends_on:
+      - public-website-gateway
+    environment:
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AuthServer__Authority=http://193.123.229.136:51511
+      - AuthServer__RequireHttpsMetadata=false
+      - RemoteServices__Default__BaseUrl=http://public-website-gateway/
+      - Redis__Configuration=redis
+    ports:
+      - 51513:80
+      
+networks:
+  default:
+    external:
+      name: dev-net
+
+volumes:
+  auth-server-log:
+  identity-service-log:
+  tenant-management-service-log:
+  blogging-service-log:
+  product-service-log:
+  internal-gateway-log:
+  backend-admin-app-gateway-log:
+  public-website-gateway-log:
+  backend-admin-app-log:
+  public-website-log:
+
