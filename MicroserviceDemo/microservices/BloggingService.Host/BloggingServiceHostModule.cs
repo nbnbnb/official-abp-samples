@@ -99,18 +99,13 @@ namespace BloggingService.Host
 
             Configure<AbpBlobStoringOptions>(options =>
             {
-                options.Containers.ConfigureDefault(container =>
+                options.Containers.Configure("blogging-files", container =>
                 {
                     container.UseFileSystem(fileSystem =>
                     {
-
+                        fileSystem.BasePath = Path.Combine(hostingEnvironment.WebRootPath, "files");
                     });
                 });
-            });
-
-            Configure<BlogFileOptions>(options =>
-            {
-                options.FileUploadLocalFolder = Path.Combine(hostingEnvironment.WebRootPath, "files");
             });
 
             context.Services.AddStackExchangeRedisCache(options =>
