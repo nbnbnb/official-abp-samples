@@ -236,7 +236,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:59511
-      - AuthServer__RequireHttpsMetadata=false
+      - AuthServer__RequireHttpsMetadata=true
       - RemoteServices__Default__BaseUrl=http://public-website-gateway/
       - Redis__Configuration=redis
     ports:
