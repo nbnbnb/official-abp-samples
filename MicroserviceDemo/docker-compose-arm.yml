@@ -188,7 +188,7 @@ services:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
-      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__Authority=http://193.123.229.136:51511
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
