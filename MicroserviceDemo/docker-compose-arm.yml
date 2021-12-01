@@ -146,6 +146,7 @@ services:
       # Dynamic C# API Clients 的配置
       # internal-gateway
       - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51324
+      # Dynamic C# API Clients 的授权信息配置
       - IdentityClients__Authority=https://seoul-arm.zhangjin.tk:51511
       - IdentityClients__RequireHttpsMetadata=true
     ports:
