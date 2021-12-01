@@ -55,6 +55,7 @@ services:
       dockerfile: microservices/TenantManagementService.Host/Dockerfile
     volumes:
       - tenant-management-service-log:/app/Logs
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
