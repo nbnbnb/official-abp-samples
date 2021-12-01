@@ -242,10 +242,12 @@ services:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      # 没有密码，则设置为空，不能写成 ""
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata=false
+      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
+      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
+      - AuthServer__RequireHttpsMetadata=true
       - RemoteServices__Default__BaseUrl=http://public-website-gateway/
       - Redis__Configuration=redis
     ports:
