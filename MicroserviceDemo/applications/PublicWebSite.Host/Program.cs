@@ -32,7 +32,7 @@ namespace PublicWebSite.Host
                     {
                         AutoRegisterTemplate = true,
                         AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
-                        IndexFormat = "msdemo-log-{0:yyyy.MM}"
+                        IndexFormat = "PublicWebSite-log-{0:yyyy.MM}"
                     })
                 .CreateLogger();
 

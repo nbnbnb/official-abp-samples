@@ -32,7 +32,7 @@ namespace ProductService.Host
                     {
                         AutoRegisterTemplate = true,
                         AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
-                        IndexFormat = "msdemo-log-{0:yyyy.MM}"
+                        IndexFormat = "ProductService-log-{0:yyyy.MM}"
                     })
                 .CreateLogger();
 
