@@ -35,10 +35,8 @@ services:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      # 没有密码，则设置为空，不能写成 ""
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
@@ -60,10 +58,8 @@ services:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      # 没有密码，则设置为空，不能写成 ""
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
@@ -85,10 +81,8 @@ services:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      # 没有密码，则设置为空，不能写成 ""
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
@@ -96,9 +90,9 @@ services:
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
-      - RemoteServices__Default__BaseUrl=http://internal-gateway/
-      - IdentityClients__Authority=http://auth-server
-      - IdentityClients__RequireHttpsMetadata=false
+      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51324
+      - IdentityClients__Authority=https://seoul-arm.zhangjin.tk:51511
+      - IdentityClients__RequireHttpsMetadata=true
     ports:
       - 51521:443
 
@@ -114,10 +108,8 @@ services:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      # 没有密码，则设置为空，不能写成 ""
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
@@ -145,10 +137,8 @@ services:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      # 没有密码，则设置为空，不能写成 ""
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
@@ -168,7 +158,7 @@ services:
       # BaseUrl - Ocelot 的服务运行地址，要特别注意一下 BaseUrl 是我们外部暴露的 Url
       # 比如我们的 Ocelot 运行在 http://localhost:5000，但是前面有一个 Nginx 绑定了域名 http://api.demo.com
       # 那这里我们的 BaseUrl 就是 http://api.demo.com
-      - GlobalConfiguration__BaseUrl=http://internal-gateway
+      - GlobalConfiguration__BaseUrl=https://seoul-arm.zhangjin.tk:51324
     ports:
       - 51324:443
 
@@ -188,13 +178,11 @@ services:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      # 没有密码，则设置为空，不能写成 ""
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
-      - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
+      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51531
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
@@ -206,7 +194,7 @@ services:
       - Routes__2__DownstreamHostAndPorts__0__Host=product-service
       - Routes__2__DownstreamHostAndPorts__0__Port=80
       - Routes__2__DownstreamScheme=http
-      - GlobalConfiguration__BaseUrl=http://backend-admin-app-gateway
+      - GlobalConfiguration__BaseUrl=https://seoul-arm.zhangjin.tk:51531
     ports:
       - 51531:443
 
@@ -225,10 +213,8 @@ services:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      # 没有密码，则设置为空，不能写成 ""
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
@@ -239,7 +225,7 @@ services:
       - Routes__1__DownstreamHostAndPorts__0__Host=blogging-service
       - Routes__1__DownstreamHostAndPorts__0__Port=80
       - Routes__1__DownstreamScheme=http
-      - GlobalConfiguration__BaseUrl=http://public-website-gateway
+      - GlobalConfiguration__BaseUrl=https://seoul-arm.zhangjin.tk:51532
     ports:
       - 51532:443
 
@@ -259,10 +245,9 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
-      - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
+      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51531
       - Redis__Configuration=redis
     ports:
       - 51512:443
@@ -287,7 +272,7 @@ services:
       # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
-      - RemoteServices__Default__BaseUrl=http://public-website-gateway/
+      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51532
       - Redis__Configuration=redis
     ports:
       - 51513:443
