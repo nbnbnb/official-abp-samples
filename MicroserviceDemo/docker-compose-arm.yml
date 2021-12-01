@@ -9,7 +9,7 @@ services:
       dockerfile: applications/AuthServer.Host/Dockerfile
     volumes:
       - auth-server-log:/app/Logs
-      - /www/server/panel/vhost/ssl/seoul-arm.zhangjin.tk:/https:ro
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/https:ro
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
@@ -232,7 +232,7 @@ services:
       dockerfile: applications/PublicWebSite.Host/Dockerfile
     volumes:
       - public-website-log:/app/Logs
-      - /www/server/panel/vhost/ssl/seoul-arm.zhangjin.tk:/https:ro
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/https:ro
     depends_on:
       - public-website-gateway
     environment:
