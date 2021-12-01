@@ -90,7 +90,8 @@ services:
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
-      # Blogging Service 调用 internal-gateway
+      # Dynamic C# API Clients 的配置
+      # internal-gateway
       - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51324
       - IdentityClients__Authority=https://seoul-arm.zhangjin.tk:51511
       - IdentityClients__RequireHttpsMetadata=true
@@ -183,7 +184,6 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
-      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51531
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
@@ -196,6 +196,9 @@ services:
       - Routes__2__DownstreamHostAndPorts__0__Port=80
       - Routes__2__DownstreamScheme=http
       - GlobalConfiguration__BaseUrl=https://seoul-arm.zhangjin.tk:51531
+      # Dynamic C# API Clients 的配置
+      # Self
+      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51531
     ports:
       - 51531:443
 
@@ -248,6 +251,8 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
+      # Dynamic C# API Clients 的配置
+      # backend-admin-app-gateway 
       - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51531
       - Redis__Configuration=redis
     ports:
@@ -274,6 +279,7 @@ services:
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
       # Dynamic C# API Clients 的配置
+      # public-website-gateway
       # https://docs.abp.io/en/abp/latest/API/Dynamic-CSharp-API-Clients
       - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51532
       - Redis__Configuration=redis
