@@ -90,6 +90,7 @@ services:
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
+      # Blogging Service 调用 internal-gateway
       - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51324
       - IdentityClients__Authority=https://seoul-arm.zhangjin.tk:51511
       - IdentityClients__RequireHttpsMetadata=true
@@ -272,6 +273,8 @@ services:
       # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
+      # Dynamic C# API Clients 的配置
+      # https://docs.abp.io/en/abp/latest/API/Dynamic-CSharp-API-Clients
       - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51532
       - Redis__Configuration=redis
     ports:
