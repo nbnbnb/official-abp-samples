@@ -242,10 +242,10 @@ services:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      # Ã»ÓĞÃÜÂë£¬ÔòÉèÖÃÎª¿Õ£¬²»ÄÜĞ´³É ""
+      # æ²¡æœ‰å¯†ç ï¼Œåˆ™è®¾ç½®ä¸ºç©ºï¼Œä¸èƒ½å†™æˆ ""
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      # Ò³ÃæÌø×ªµÄ URL£¬²»ÄÜÅäÖÃ³ÉÄÚÍøÄ£Ê½ http://auth-server:51511
+      # é¡µé¢è·³è½¬çš„ URLï¼Œä¸èƒ½é…ç½®æˆå†…ç½‘æ¨¡å¼ http://auth-server:51511
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=true
       - RemoteServices__Default__BaseUrl=http://public-website-gateway/
