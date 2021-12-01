@@ -23,6 +23,59 @@ services:
     ports:
       - 51511:443
 
+  backend-admin-app:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host'
+    build:
+      context: .
+      dockerfile: applications/BackendAdminApp.Host/Dockerfile
+    volumes:
+      - backend-admin-app-log:/app/Logs
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+    depends_on:
+      - backend-admin-app-gateway
+    environment:
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
+      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
+      - AuthServer__RequireHttpsMetadata=true
+      # Dynamic C# API Clients 的配置
+      # backend-admin-app-gateway 
+      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51531
+      - Redis__Configuration=redis
+    ports:
+      - 51512:443
+  
+  public-website:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-publicwebsite-host'
+    build:
+      context: .
+      dockerfile: applications/PublicWebSite.Host/Dockerfile
+    volumes:
+      - public-website-log:/app/Logs
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+    depends_on:
+      - public-website-gateway
+    environment:
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      # 没有密码，则设置为空，不能写成 ""
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
+      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
+      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
+      - AuthServer__RequireHttpsMetadata=true
+      # Dynamic C# API Clients 的配置
+      # public-website-gateway
+      # https://docs.abp.io/en/abp/latest/API/Dynamic-CSharp-API-Clients
+      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51532
+      - Redis__Configuration=redis
+    ports:
+      - 51513:443
+
   identity-service:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-identityservice-host'
     build:
@@ -233,58 +286,6 @@ services:
     ports:
       - 51532:443
 
-  backend-admin-app:
-    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host'
-    build:
-      context: .
-      dockerfile: applications/BackendAdminApp.Host/Dockerfile
-    volumes:
-      - backend-admin-app-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
-    depends_on:
-      - backend-admin-app-gateway
-    environment:
-      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
-      - AuthServer__RequireHttpsMetadata=true
-      # Dynamic C# API Clients 的配置
-      # backend-admin-app-gateway 
-      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51531
-      - Redis__Configuration=redis
-    ports:
-      - 51512:443
-  
-  public-website:
-    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-publicwebsite-host'
-    build:
-      context: .
-      dockerfile: applications/PublicWebSite.Host/Dockerfile
-    volumes:
-      - public-website-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
-    depends_on:
-      - public-website-gateway
-    environment:
-      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      # 没有密码，则设置为空，不能写成 ""
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
-      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
-      - AuthServer__RequireHttpsMetadata=true
-      # Dynamic C# API Clients 的配置
-      # public-website-gateway
-      # https://docs.abp.io/en/abp/latest/API/Dynamic-CSharp-API-Clients
-      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51532
-      - Redis__Configuration=redis
-    ports:
-      - 51513:443
       
 networks:
   default:
