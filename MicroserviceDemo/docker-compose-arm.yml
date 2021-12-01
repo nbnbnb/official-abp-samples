@@ -192,7 +192,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
-      - AuthServer__RequireHttpsMetadata=true	
+      - AuthServer__RequireHttpsMetadata=true
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
@@ -229,7 +229,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
-      - AuthServer__RequireHttpsMetadata=true	
+      - AuthServer__RequireHttpsMetadata=true
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - Routes__0__DownstreamHostAndPorts__0__Host=product-service
