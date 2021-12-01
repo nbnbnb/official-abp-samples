@@ -295,13 +295,14 @@ networks:
 
 volumes:
   auth-server-log:
+  backend-admin-app-log:
+  public-website-log:
   identity-service-log:
   tenant-management-service-log:
   blogging-service-log:
   product-service-log:
   internal-gateway-log:
   backend-admin-app-gateway-log:
-  public-website-gateway-log:
-  backend-admin-app-log:
-  public-website-log:
+  public-website-gateway-log:  
+  
 
