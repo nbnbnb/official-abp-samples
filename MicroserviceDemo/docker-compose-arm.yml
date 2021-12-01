@@ -232,7 +232,7 @@ services:
       dockerfile: applications/PublicWebSite.Host/Dockerfile
     volumes:
       - public-website-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/https:ro
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     depends_on:
       - public-website-gateway
     environment:
