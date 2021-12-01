@@ -9,13 +9,13 @@ services:
       dockerfile: applications/AuthServer.Host/Dockerfile
     volumes:
       - auth-server-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/https:ro
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=""
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/privkey.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
