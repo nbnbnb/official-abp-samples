@@ -9,12 +9,13 @@ services:
       dockerfile: applications/AuthServer.Host/Dockerfile
     volumes:
       - auth-server-log:/app/Logs
+      - https:/https:ro
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=""
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/www/server/panel/vhost/ssl/seoul-arm.zhangjin.tk/privkey.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/privkey.pfx
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
@@ -231,6 +232,7 @@ services:
       dockerfile: applications/PublicWebSite.Host/Dockerfile
     volumes:
       - public-website-log:/app/Logs
+      - https:/https:ro
     depends_on:
       - public-website-gateway
     environment:
@@ -238,7 +240,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=""
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/www/server/panel/vhost/ssl/seoul-arm.zhangjin.tk/privkey.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/privkey.pfx
       - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
       - AuthServer__RequireHttpsMetadata=false
       - RemoteServices__Default__BaseUrl=http://public-website-gateway/
@@ -262,4 +264,5 @@ volumes:
   public-website-gateway-log:
   backend-admin-app-log:
   public-website-log:
+  https: /www/server/panel/vhost/ssl/seoul-arm.zhangjin.tk
 
