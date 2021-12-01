@@ -30,18 +30,23 @@ services:
       dockerfile: microservices/IdentityService.Host/Dockerfile      
     volumes:
       - identity-service-log:/app/Logs
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://0.0.0.0:80
-      - AuthServer__Authority=http://auth-server
-      - AuthServer__RequireHttpsMetadata=false
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      # 没有密码，则设置为空，不能写成 ""
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
+      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
+      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
+      - AuthServer__RequireHttpsMetadata=true
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
     ports:
-      - 51522:80
+      - 51522:443
 
   tenant-management-service:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-tenantmanagementservice-host'
@@ -53,15 +58,19 @@ services:
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://0.0.0.0:80
-      - AuthServer__Authority=http://auth-server
-      - AuthServer__RequireHttpsMetadata=false
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      # 没有密码，则设置为空，不能写成 ""
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
+      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
+      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
+      - AuthServer__RequireHttpsMetadata=true
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
     ports:
-      - 51524:80
+      - 51524:443
 
   blogging-service:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-bloggingservice-host'
@@ -70,12 +79,17 @@ services:
       dockerfile: microservices/BloggingService.Host/Dockerfile
     volumes:
       - blogging-service-log:/app/Logs
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://0.0.0.0:80
-      - AuthServer__Authority=http://auth-server
-      - AuthServer__RequireHttpsMetadata=false
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      # 没有密码，则设置为空，不能写成 ""
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
+      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
+      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
+      - AuthServer__RequireHttpsMetadata=true
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - ConnectionStrings__Blogging=mongodb://admin:kkking@mongo:27017/MsDemo_Blogging?authSource=admin
       - Redis__Configuration=redis
@@ -85,7 +99,7 @@ services:
       - IdentityClients__Authority=http://auth-server
       - IdentityClients__RequireHttpsMetadata=false
     ports:
-      - 51521:80
+      - 51521:443
 
   product-service:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-productservice-host'
@@ -94,19 +108,24 @@ services:
       dockerfile: microservices/ProductService.Host/Dockerfile
     volumes:
       - product-service-log:/app/Logs
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://0.0.0.0:80
-      - AuthServer__Authority=http://auth-server
-      - AuthServer__RequireHttpsMetadata=false
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      # 没有密码，则设置为空，不能写成 ""
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
+      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
+      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
+      - AuthServer__RequireHttpsMetadata=true
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - ConnectionStrings__ProductManagement=Server=mariadb;Port=3306;Database=ABPDemo_ProductManagement;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
     ports:
-      - 51523:80
+      - 51523:443
 
   internal-gateway:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-internalgateway-host'
@@ -115,6 +134,7 @@ services:
       dockerfile: gateways/InternalGateway.Host/Dockerfile
     volumes:
       - internal-gateway-log:/app/Logs
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     depends_on:
       - identity-service
       - product-service
@@ -123,9 +143,13 @@ services:
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://0.0.0.0:80
-      - AuthServer__Authority=http://auth-server
-      - AuthServer__RequireHttpsMetadata=false
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      # 没有密码，则设置为空，不能写成 ""
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
+      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
+      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
+      - AuthServer__RequireHttpsMetadata=true
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
@@ -142,7 +166,7 @@ services:
       - Routes__3__DownstreamScheme=http
       - GlobalConfiguration__BaseUrl=http://internal-gateway
     ports:
-      - 51324:80
+      - 51324:443
 
   backend-admin-app-gateway:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminappgateway-host'
@@ -151,6 +175,7 @@ services:
       dockerfile: gateways/BackendAdminAppGateway.Host/Dockerfile
     volumes:
       - backend-admin-app-gateway-log:/app/Logs
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     depends_on:
       - identity-service
       - product-service
@@ -158,10 +183,14 @@ services:
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      # 没有密码，则设置为空，不能写成 ""
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
+      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
+      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
+      - AuthServer__RequireHttpsMetadata=true	
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
-      - AuthServer__Authority=http://auth-server
-      - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
@@ -175,7 +204,7 @@ services:
       - Routes__2__DownstreamScheme=http
       - GlobalConfiguration__BaseUrl=http://backend-admin-app-gateway
     ports:
-      - 51531:80
+      - 51531:443
 
   public-website-gateway:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-publicwebsitegateway-host'
@@ -184,15 +213,20 @@ services:
       dockerfile: gateways/PublicWebSiteGateway.Host/Dockerfile
     volumes:
       - public-website-gateway-log:/app/Logs
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     depends_on:
       - blogging-service
       - product-service
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://0.0.0.0:80
-      - AuthServer__Authority=http://auth-server
-      - AuthServer__RequireHttpsMetadata=false
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      # 没有密码，则设置为空，不能写成 ""
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
+      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
+      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
+      - AuthServer__RequireHttpsMetadata=true	
       - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
       - Redis__Configuration=redis
       - Routes__0__DownstreamHostAndPorts__0__Host=product-service
@@ -203,7 +237,7 @@ services:
       - Routes__1__DownstreamScheme=http
       - GlobalConfiguration__BaseUrl=http://public-website-gateway
     ports:
-      - 51532:80
+      - 51532:443
 
   backend-admin-app:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host'
