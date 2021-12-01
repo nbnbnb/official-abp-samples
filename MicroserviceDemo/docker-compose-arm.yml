@@ -218,13 +218,15 @@ services:
     environment:
       - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=http://auth-server
       - AuthServer__RequireHttpsMetadata=false
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
       - Redis__Configuration=redis
     ports:
-      - 51512:80
+      - 51512:443
   
   public-website:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-publicwebsite-host'
@@ -242,7 +244,7 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
+      - AuthServer__Authority=http://auth-server:51511
       - AuthServer__RequireHttpsMetadata=false
       - RemoteServices__Default__BaseUrl=http://public-website-gateway/
       - Redis__Configuration=redis
