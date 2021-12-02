@@ -1,7 +1,7 @@
 /*!
  * tui-code-snippet.js
- * @version 1.5.0
- * @author NHNEnt FE Development Lab <dl_javascript@nhnent.com>
+ * @version 1.5.2
+ * @author NHN. FE Development Lab <dl_javascript@nhn.com>
  * @license MIT
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -64,8 +64,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 * @namespace tui.util
 	 * @example
 	 * // node, commonjs
@@ -112,8 +112,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview This module has some functions for handling a plain object, json.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -396,8 +396,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview This module provides some functions to check the type of variable
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -762,8 +762,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview This module has some functions for handling array.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -903,8 +903,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview This module has some functions for handling object as collection.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -1263,8 +1263,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview This module provides a bind() function for context binding.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -1305,8 +1305,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview This module provides some simple function for inheritance.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -1378,8 +1378,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview This module has some functions for handling the string.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -1512,7 +1512,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview collections of some technic methods.
-	 * @author NHN Ent. FE Development Lab <e0242.nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript.nhn.com>
 	 */
 
 	'use strict';
@@ -1670,8 +1671,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview This module has some functions for handling object as collection.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 	'use strict';
 
@@ -1785,8 +1786,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview This module detects the kind of well-known browser and version.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -1824,65 +1825,75 @@ return /******/ (function(modules) { // webpackBootstrap
 	    version: 0
 	};
 
-	var nav = window.navigator;
-	var appName = nav.appName.replace(/\s/g, '_');
-	var userAgent = nav.userAgent;
+	if (window && window.navigator) {
+	    detectBrowser();
+	}
 
-	var rIE = /MSIE\s([0-9]+[.0-9]*)/;
-	var rIE11 = /Trident.*rv:11\./;
-	var rEdge = /Edge\/(\d+)\./;
-	var versionRegex = {
-	    firefox: /Firefox\/(\d+)\./,
-	    chrome: /Chrome\/(\d+)\./,
-	    safari: /Version\/([\d.]+).*Safari\/(\d+)/
-	};
+	/**
+	 * Detect the browser.
+	 * @private
+	 */
+	function detectBrowser() {
+	    var nav = window.navigator;
+	    var appName = nav.appName.replace(/\s/g, '_');
+	    var userAgent = nav.userAgent;
 
-	var key, tmp;
+	    var rIE = /MSIE\s([0-9]+[.0-9]*)/;
+	    var rIE11 = /Trident.*rv:11\./;
+	    var rEdge = /Edge\/(\d+)\./;
+	    var versionRegex = {
+	        firefox: /Firefox\/(\d+)\./,
+	        chrome: /Chrome\/(\d+)\./,
+	        safari: /Version\/([\d.]+).*Safari\/(\d+)/
+	    };
 
-	var detector = {
-	    Microsoft_Internet_Explorer: function() { // eslint-disable-line camelcase
-	        var detectedVersion = userAgent.match(rIE);
+	    var key, tmp;
 
-	        if (detectedVersion) { // ie8 ~ ie10
-	            browser.msie = true;
-	            browser.version = parseFloat(detectedVersion[1]);
-	        } else { // no version information
-	            browser.others = true;
-	        }
-	    },
-	    Netscape: function() { // eslint-disable-line complexity
-	        var detected = false;
+	    var detector = {
+	        Microsoft_Internet_Explorer: function() { // eslint-disable-line camelcase
+	            var detectedVersion = userAgent.match(rIE);
 
-	        if (rIE11.exec(userAgent)) {
-	            browser.msie = true;
-	            browser.version = 11;
-	            detected = true;
-	        } else if (rEdge.exec(userAgent)) {
-	            browser.edge = true;
-	            browser.version = userAgent.match(rEdge)[1];
-	            detected = true;
-	        } else {
-	            for (key in versionRegex) {
-	                if (versionRegex.hasOwnProperty(key)) {
-	                    tmp = userAgent.match(versionRegex[key]);
-	                    if (tmp && tmp.length > 1) { // eslint-disable-line max-depth
-	                        browser[key] = detected = true;
-	                        browser.version = parseFloat(tmp[1] || 0);
-	                        break;
+	            if (detectedVersion) { // ie8 ~ ie10
+	                browser.msie = true;
+	                browser.version = parseFloat(detectedVersion[1]);
+	            } else { // no version information
+	                browser.others = true;
+	            }
+	        },
+	        Netscape: function() { // eslint-disable-line complexity
+	            var detected = false;
+
+	            if (rIE11.exec(userAgent)) {
+	                browser.msie = true;
+	                browser.version = 11;
+	                detected = true;
+	            } else if (rEdge.exec(userAgent)) {
+	                browser.edge = true;
+	                browser.version = userAgent.match(rEdge)[1];
+	                detected = true;
+	            } else {
+	                for (key in versionRegex) {
+	                    if (versionRegex.hasOwnProperty(key)) {
+	                        tmp = userAgent.match(versionRegex[key]);
+	                        if (tmp && tmp.length > 1) { // eslint-disable-line max-depth
+	                            browser[key] = detected = true;
+	                            browser.version = parseFloat(tmp[1] || 0);
+	                            break;
+	                        }
 	                    }
 	                }
 	            }
+	            if (!detected) {
+	                browser.others = true;
+	            }
 	        }
-	        if (!detected) {
-	            browser.others = true;
-	        }
+	    };
+
+	    var fn = detector[appName];
+
+	    if (fn) {
+	        detector[appName]();
 	    }
-	};
-
-	var fn = detector[appName];
-
-	if (fn) {
-	    detector[appName]();
 	}
 
 	module.exports = browser;
@@ -1894,8 +1905,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview This module has some methods for handling popup-window
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -2218,8 +2229,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview This module has a function for date format.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -2458,8 +2469,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @fileoverview
 	 *  This module provides a function to make a constructor
 	 * that can inherit from the other constructors like the CLASS easily.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -2542,8 +2553,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview Define module
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javscript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javscript@nhn.com>
 	 * @dependency type.js, defineNamespace.js
 	 */
 
@@ -2598,8 +2609,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview Define namespace
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 * @dependency object.js, collection.js
 	 */
 
@@ -2663,8 +2674,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @fileoverview
 	 *  This module provides some functions for custom events.<br>
 	 *  And it is implemented in the observer design pattern.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -3256,8 +3267,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview This module provides a Enum Constructor.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 * @example
 	 * // node, commonjs
 	 * var Enum = require('tui-code-snippet').Enum;
@@ -3429,8 +3440,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * @fileoverview
 	 *  Implements the ExMap (Extended Map) object.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -3546,8 +3557,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * @fileoverview
 	 *  Implements the Map object.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
@@ -3939,8 +3950,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview This module provides the HashMap constructor.
-	 * @author NHN Ent.
-	 *         FE Development Lab <dl_javascript@nhnent.com>
+	 * @author NHN.
+	 *         FE Development Lab <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
