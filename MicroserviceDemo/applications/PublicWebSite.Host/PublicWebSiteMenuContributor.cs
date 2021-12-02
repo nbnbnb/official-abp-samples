@@ -20,7 +20,7 @@ namespace PublicWebSite.Host
         {
             if (context.Menu.Name != StandardMenus.Main)
             {
-                return Task.CompletedTask;
+                await Task.CompletedTask;
             }
 
             //TODO: Localize menu items
@@ -33,7 +33,7 @@ namespace PublicWebSite.Host
                 await ConfigureUserMenuAsync(context);
             }
 
-            return Task.CompletedTask;
+            await Task.CompletedTask;
         }
 
         private Task ConfigureUserMenuAsync(MenuConfigurationContext context)
