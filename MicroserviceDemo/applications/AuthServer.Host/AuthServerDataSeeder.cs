@@ -150,7 +150,27 @@ namespace AuthServer.Host
                 permissions: new[] { IdentityPermissions.Users.Default, TenantManagementPermissions.Tenants.Default, "ProductManagement.Product" }
             );
 
+#if ARM
             await CreateClientAsync(
+                 "backend-admin-app-client",
+                 commonScopes.Union(new[] { "BackendAdminAppGateway", "IdentityService", "ProductService", "TenantManagementService" }),
+                 new[] { "hybrid" },
+                 commonSecret,
+                 permissions: new[] { IdentityPermissions.Users.Default, "ProductManagement.Product" },
+                 redirectUri: "https://seoul-arm.zhangjin.tk:51512/signin-oidc",
+                 postLogoutRedirectUri: "https://seoul-arm.zhangjin.tk:51512/signout-callback-oidc"
+             );
+
+            await CreateClientAsync(
+                "public-website-client",
+                commonScopes.Union(new[] { "PublicWebSiteGateway", "BloggingService", "ProductService" }),
+                new[] { "hybrid" },
+                commonSecret,
+                redirectUri: "https://seoul-arm.zhangjin.tk:51513/signin-oidc",
+                postLogoutRedirectUri: "https://seoul-arm.zhangjin.tk:51513/signout-callback-oidc"
+            );
+#else
+           await CreateClientAsync(
                 "backend-admin-app-client",
                 commonScopes.Union(new[] { "BackendAdminAppGateway", "IdentityService", "ProductService", "TenantManagementService" }),
                 new[] { "hybrid" },
@@ -168,6 +188,9 @@ namespace AuthServer.Host
                 redirectUri: "https://localhost:44335/signin-oidc",
                 postLogoutRedirectUri: "https://localhost:44335/signout-callback-oidc"
             );
+#endif
+
+
 
             await CreateClientAsync(
                 "blogging-service-client",

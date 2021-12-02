@@ -6,7 +6,7 @@ services:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-authserver-host'
     build:
       context: .
-      dockerfile: applications/AuthServer.Host/Dockerfile
+      dockerfile: applications/AuthServer.Host/Dockerfile-ARM
     volumes:
       - auth-server-log:/app/Logs
       - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
