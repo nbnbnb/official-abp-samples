@@ -7,7 +7,7 @@ docker pull registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-identityservice-h
 docker pull registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-tenantmanagementservice-host
 docker pull registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-bloggingservice-host
 docker pull registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-productservice-host
-docker pull registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-tnternalgateway-host
+docker pull registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-internalgateway-host
 docker pull registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminappgateway-host
 docker pull registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-publicwebsitegateway-host
 
