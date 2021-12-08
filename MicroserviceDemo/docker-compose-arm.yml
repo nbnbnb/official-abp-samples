@@ -176,6 +176,48 @@ services:
     ports:
       - 51523:443
 
+  internal-gateway:
+    image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-internalgateway-host'
+    build:
+      context: .
+      dockerfile: gateways/InternalGateway.Host/Dockerfile
+    volumes:
+      - internal-gateway-log:/app/Logs
+      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+    depends_on:
+      - identity-service
+      - product-service
+      - blogging-service
+      - tenant-management-service
+    environment:
+      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
+      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
+      - AuthServer__RequireHttpsMetadata=true
+      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
+      - Redis__Configuration=redis
+      - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
+      - Routes__0__DownstreamHostAndPorts__0__Port=80
+      - Routes__0__DownstreamScheme=http
+      - Routes__1__DownstreamHostAndPorts__0__Host=tenant-management-service
+      - Routes__1__DownstreamHostAndPorts__0__Port=80
+      - Routes__1__DownstreamScheme=http
+      - Routes__2__DownstreamHostAndPorts__0__Host=product-service
+      - Routes__2__DownstreamHostAndPorts__0__Port=80
+      - Routes__2__DownstreamScheme=http
+      - Routes__3__DownstreamHostAndPorts__0__Host=blogging-service
+      - Routes__3__DownstreamHostAndPorts__0__Port=80
+      - Routes__3__DownstreamScheme=http
+      # BaseUrl - Ocelot 的服务运行地址，要特别注意一下 BaseUrl 是我们外部暴露的 Url
+      # 比如我们的 Ocelot 运行在 http://localhost:5000，但是前面有一个 Nginx 绑定了域名 http://api.demo.com
+      # 那这里我们的 BaseUrl 就是 http://api.demo.com
+      - GlobalConfiguration__BaseUrl=https://seoul-arm.zhangjin.tk:51324
+    ports:
+      - 51324:443
+
   backend-admin-app-gateway:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminappgateway-host'
     build:
