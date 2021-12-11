@@ -39,11 +39,8 @@ jobs:
       script: >-
         # Write your commands here
         echo 'Install Buildx'
-
         docker buildx create --name multi-platform-builder --driver docker-container
-
         docker buildx use multi-platform-builder
-
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -95,12 +92,8 @@ jobs:
       script: >-
         # Write your commands here
         echo 'Install Buildx'
-
         docker buildx create --name multi-platform-builder --driver docker-container
-
         docker buildx use multi-platform-builder
-
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -152,12 +145,8 @@ jobs:
       script: >-
         # Write your commands here
         echo 'Install Buildx'
-
         docker buildx create --name multi-platform-builder --driver docker-container
-
         docker buildx use multi-platform-builder
-
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -209,12 +198,8 @@ jobs:
       script: >-
         # Write your commands here
         echo 'Install Buildx'
-
         docker buildx create --name multi-platform-builder --driver docker-container
-
         docker buildx use multi-platform-builder
-
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -266,12 +251,8 @@ jobs:
       script: >-
         # Write your commands here
         echo 'Install Buildx'
-
         docker buildx create --name multi-platform-builder --driver docker-container
-
         docker buildx use multi-platform-builder
-
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -323,12 +304,8 @@ jobs:
       script: >-
         # Write your commands here
         echo 'Install Buildx'
-
         docker buildx create --name multi-platform-builder --driver docker-container
-
         docker buildx use multi-platform-builder
-
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -380,12 +357,8 @@ jobs:
       script: >-
         # Write your commands here
         echo 'Install Buildx'
-
         docker buildx create --name multi-platform-builder --driver docker-container
-
         docker buildx use multi-platform-builder
-
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -437,12 +410,8 @@ jobs:
       script: >-
         # Write your commands here
         echo 'Install Buildx'
-
         docker buildx create --name multi-platform-builder --driver docker-container
-
         docker buildx use multi-platform-builder
-
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -494,12 +463,8 @@ jobs:
       script: >-
         # Write your commands here
         echo 'Install Buildx'
-
         docker buildx create --name multi-platform-builder --driver docker-container
-
         docker buildx use multi-platform-builder
-
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -551,12 +516,8 @@ jobs:
       script: >-
         # Write your commands here
         echo 'Install Buildx'
-
         docker buildx create --name multi-platform-builder --driver docker-container
-
         docker buildx use multi-platform-builder
-
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
