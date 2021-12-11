@@ -125,7 +125,7 @@ jobs:
         echo '---End---'
 
 - job: Job_3
-  displayName: abp-backendadminapp-host
+  displayName: abp-publicwebsite-host
   timeoutInMinutes: 120
   pool:
     vmImage: ubuntu-20.04
@@ -182,7 +182,7 @@ jobs:
         echo '---End---'
 
 - job: Job_4
-  displayName: abp-backendadminapp-host
+  displayName: abp-identityservice-host
   timeoutInMinutes: 120
   pool:
     vmImage: ubuntu-20.04
@@ -239,7 +239,7 @@ jobs:
         echo '---End---'
 
 - job: Job_5
-  displayName: abp-backendadminapp-host
+  displayName: abp-tenantmanagementservice-host
   timeoutInMinutes: 120
   pool:
     vmImage: ubuntu-20.04
@@ -296,7 +296,7 @@ jobs:
         echo '---End---'
 
 - job: Job_6
-  displayName: abp-backendadminapp-host
+  displayName: abp-bloggingservice-host
   timeoutInMinutes: 120
   pool:
     vmImage: ubuntu-20.04
@@ -353,7 +353,7 @@ jobs:
         echo '---End---'
 
 - job: Job_7
-  displayName: abp-backendadminapp-host
+  displayName: abp-productservice-host
   timeoutInMinutes: 120
   pool:
     vmImage: ubuntu-20.04
@@ -410,7 +410,7 @@ jobs:
         echo '---End---'
 
 - job: Job_8
-  displayName: abp-backendadminapp-host
+  displayName: abp-internalgateway-host
   timeoutInMinutes: 120
   pool:
     vmImage: ubuntu-20.04
@@ -467,7 +467,7 @@ jobs:
         echo '---End---'
 
 - job: Job_9
-  displayName: abp-backendadminapp-host
+  displayName: abp-backendadminappgateway-host
   timeoutInMinutes: 120
   pool:
     vmImage: ubuntu-20.04
@@ -519,12 +519,12 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=4RyWV1DQl0TlogKb2HNei2njgcEQBl3WhjR2A6gTfVnEcJrJ&param=backend-admin-app-gateway,abp-backendadminapp-host'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=4RyWV1DQl0TlogKb2HNei2njgcEQBl3WhjR2A6gTfVnEcJrJ&param=backend-admin-app-gateway,abp-backendadminappgateway-host'`
 
         echo '---End---'
 
 - job: Job_10
-  displayName: abp-backendadminapp-host
+  displayName: abp-publicwebsitegateway-host
   timeoutInMinutes: 120
   pool:
     vmImage: ubuntu-20.04
