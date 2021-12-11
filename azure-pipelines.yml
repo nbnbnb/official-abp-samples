@@ -64,7 +64,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=MicroserviceDemo'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=auth-server'`
 
         echo '---End---'
 
@@ -121,6 +121,462 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=MicroserviceDemo'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=backend-admin-app'`
+
+        echo '---End---'
+
+- job: Job_3
+  displayName: abp-backendadminapp-host
+  timeoutInMinutes: 120
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+    clean: true
+  - task: UseDotNet@2
+    displayName: Use .NET Core sdk 5.x
+    inputs:
+      version: 5.x
+  - task: DockerInstaller@0
+    displayName: Install Docker 20.10.9
+    inputs:
+      dockerVersion: 20.10.9
+  - task: Docker@2
+    displayName: login
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: login
+  - task: Bash@3
+    displayName: Install Buildx
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo 'Install Buildx'
+
+        docker buildx create --name multibuilder --driver docker-container
+
+        docker buildx use multibuilder
+
+        docker run --privileged --rm tonistiigi/binfmt --install all
+  - task: Bash@3
+    displayName: Build & Push Image
+    inputs:
+      targetType: inline
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./applications/PublicWebSite.Host/Dockerfile .
+      workingDirectory: MicroserviceDemo
+  - task: Docker@2
+    displayName: logout
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: logout
+  - task: Bash@3
+    displayName: Notify
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo '--Start--'
+
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=public-website'`
+
+        echo '---End---'
+
+- job: Job_4
+  displayName: abp-backendadminapp-host
+  timeoutInMinutes: 120
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+    clean: true
+  - task: UseDotNet@2
+    displayName: Use .NET Core sdk 5.x
+    inputs:
+      version: 5.x
+  - task: DockerInstaller@0
+    displayName: Install Docker 20.10.9
+    inputs:
+      dockerVersion: 20.10.9
+  - task: Docker@2
+    displayName: login
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: login
+  - task: Bash@3
+    displayName: Install Buildx
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo 'Install Buildx'
+
+        docker buildx create --name multibuilder --driver docker-container
+
+        docker buildx use multibuilder
+
+        docker run --privileged --rm tonistiigi/binfmt --install all
+  - task: Bash@3
+    displayName: Build & Push Image
+    inputs:
+      targetType: inline
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./microservices/IdentityService.Host/Dockerfile .
+      workingDirectory: MicroserviceDemo
+  - task: Docker@2
+    displayName: logout
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: logout
+  - task: Bash@3
+    displayName: Notify
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo '--Start--'
+
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=identity-service'`
+
+        echo '---End---'
+
+- job: Job_5
+  displayName: abp-backendadminapp-host
+  timeoutInMinutes: 120
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+    clean: true
+  - task: UseDotNet@2
+    displayName: Use .NET Core sdk 5.x
+    inputs:
+      version: 5.x
+  - task: DockerInstaller@0
+    displayName: Install Docker 20.10.9
+    inputs:
+      dockerVersion: 20.10.9
+  - task: Docker@2
+    displayName: login
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: login
+  - task: Bash@3
+    displayName: Install Buildx
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo 'Install Buildx'
+
+        docker buildx create --name multibuilder --driver docker-container
+
+        docker buildx use multibuilder
+
+        docker run --privileged --rm tonistiigi/binfmt --install all
+  - task: Bash@3
+    displayName: Build & Push Image
+    inputs:
+      targetType: inline
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./microservices/TenantManagementService.Host/Dockerfile .
+      workingDirectory: MicroserviceDemo
+  - task: Docker@2
+    displayName: logout
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: logout
+  - task: Bash@3
+    displayName: Notify
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo '--Start--'
+
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=tenant-management-service'`
+
+        echo '---End---'
+
+- job: Job_6
+  displayName: abp-backendadminapp-host
+  timeoutInMinutes: 120
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+    clean: true
+  - task: UseDotNet@2
+    displayName: Use .NET Core sdk 5.x
+    inputs:
+      version: 5.x
+  - task: DockerInstaller@0
+    displayName: Install Docker 20.10.9
+    inputs:
+      dockerVersion: 20.10.9
+  - task: Docker@2
+    displayName: login
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: login
+  - task: Bash@3
+    displayName: Install Buildx
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo 'Install Buildx'
+
+        docker buildx create --name multibuilder --driver docker-container
+
+        docker buildx use multibuilder
+
+        docker run --privileged --rm tonistiigi/binfmt --install all
+  - task: Bash@3
+    displayName: Build & Push Image
+    inputs:
+      targetType: inline
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./microservices/BloggingService.Host/Dockerfile .
+      workingDirectory: MicroserviceDemo
+  - task: Docker@2
+    displayName: logout
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: logout
+  - task: Bash@3
+    displayName: Notify
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo '--Start--'
+
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=blogging-service'`
+
+        echo '---End---'
+
+- job: Job_7
+  displayName: abp-backendadminapp-host
+  timeoutInMinutes: 120
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+    clean: true
+  - task: UseDotNet@2
+    displayName: Use .NET Core sdk 5.x
+    inputs:
+      version: 5.x
+  - task: DockerInstaller@0
+    displayName: Install Docker 20.10.9
+    inputs:
+      dockerVersion: 20.10.9
+  - task: Docker@2
+    displayName: login
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: login
+  - task: Bash@3
+    displayName: Install Buildx
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo 'Install Buildx'
+
+        docker buildx create --name multibuilder --driver docker-container
+
+        docker buildx use multibuilder
+
+        docker run --privileged --rm tonistiigi/binfmt --install all
+  - task: Bash@3
+    displayName: Build & Push Image
+    inputs:
+      targetType: inline
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./microservices/ProductService.Host/Dockerfile .
+      workingDirectory: MicroserviceDemo
+  - task: Docker@2
+    displayName: logout
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: logout
+  - task: Bash@3
+    displayName: Notify
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo '--Start--'
+
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=product-service'`
+
+        echo '---End---'
+
+- job: Job_8
+  displayName: abp-backendadminapp-host
+  timeoutInMinutes: 120
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+    clean: true
+  - task: UseDotNet@2
+    displayName: Use .NET Core sdk 5.x
+    inputs:
+      version: 5.x
+  - task: DockerInstaller@0
+    displayName: Install Docker 20.10.9
+    inputs:
+      dockerVersion: 20.10.9
+  - task: Docker@2
+    displayName: login
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: login
+  - task: Bash@3
+    displayName: Install Buildx
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo 'Install Buildx'
+
+        docker buildx create --name multibuilder --driver docker-container
+
+        docker buildx use multibuilder
+
+        docker run --privileged --rm tonistiigi/binfmt --install all
+  - task: Bash@3
+    displayName: Build & Push Image
+    inputs:
+      targetType: inline
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./gateways/InternalGateway.Host/Dockerfile .
+      workingDirectory: MicroserviceDemo
+  - task: Docker@2
+    displayName: logout
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: logout
+  - task: Bash@3
+    displayName: Notify
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo '--Start--'
+
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=internal-gateway'`
+
+        echo '---End---'
+
+- job: Job_9
+  displayName: abp-backendadminapp-host
+  timeoutInMinutes: 120
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+    clean: true
+  - task: UseDotNet@2
+    displayName: Use .NET Core sdk 5.x
+    inputs:
+      version: 5.x
+  - task: DockerInstaller@0
+    displayName: Install Docker 20.10.9
+    inputs:
+      dockerVersion: 20.10.9
+  - task: Docker@2
+    displayName: login
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: login
+  - task: Bash@3
+    displayName: Install Buildx
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo 'Install Buildx'
+
+        docker buildx create --name multibuilder --driver docker-container
+
+        docker buildx use multibuilder
+
+        docker run --privileged --rm tonistiigi/binfmt --install all
+  - task: Bash@3
+    displayName: Build & Push Image
+    inputs:
+      targetType: inline
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./gateways/BackendAdminAppGateway.Host/Dockerfile .
+      workingDirectory: MicroserviceDemo
+  - task: Docker@2
+    displayName: logout
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: logout
+  - task: Bash@3
+    displayName: Notify
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo '--Start--'
+
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=backend-admin-app-gateway'`
+
+        echo '---End---'
+
+- job: Job_10
+  displayName: abp-backendadminapp-host
+  timeoutInMinutes: 120
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+    clean: true
+  - task: UseDotNet@2
+    displayName: Use .NET Core sdk 5.x
+    inputs:
+      version: 5.x
+  - task: DockerInstaller@0
+    displayName: Install Docker 20.10.9
+    inputs:
+      dockerVersion: 20.10.9
+  - task: Docker@2
+    displayName: login
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: login
+  - task: Bash@3
+    displayName: Install Buildx
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo 'Install Buildx'
+
+        docker buildx create --name multibuilder --driver docker-container
+
+        docker buildx use multibuilder
+
+        docker run --privileged --rm tonistiigi/binfmt --install all
+  - task: Bash@3
+    displayName: Build & Push Image
+    inputs:
+      targetType: inline
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./gateways/PublicWebSiteGateway.Host/Dockerfile .
+      workingDirectory: MicroserviceDemo
+  - task: Docker@2
+    displayName: logout
+    inputs:
+      containerRegistry: 3ec4decc-f585-4b57-ad20-058527a0fd18
+      command: logout
+  - task: Bash@3
+    displayName: Notify
+    inputs:
+      targetType: inline
+      script: >-
+        # Write your commands here
+        echo '--Start--'
+
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=public-website-gateway'`
 
         echo '---End---'
