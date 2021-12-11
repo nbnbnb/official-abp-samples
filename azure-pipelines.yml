@@ -100,7 +100,6 @@ jobs:
 
         docker buildx use multi-platform-builder
 
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -157,7 +156,6 @@ jobs:
 
         docker buildx use multi-platform-builder
 
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -214,7 +212,6 @@ jobs:
 
         docker buildx use multi-platform-builder
 
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -271,7 +268,6 @@ jobs:
 
         docker buildx use multi-platform-builder
 
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -328,7 +324,6 @@ jobs:
 
         docker buildx use multi-platform-builder
 
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -385,7 +380,6 @@ jobs:
 
         docker buildx use multi-platform-builder
 
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -442,7 +436,6 @@ jobs:
 
         docker buildx use multi-platform-builder
 
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -499,7 +492,6 @@ jobs:
 
         docker buildx use multi-platform-builder
 
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
@@ -556,7 +548,6 @@ jobs:
 
         docker buildx use multi-platform-builder
 
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
