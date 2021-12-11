@@ -68,7 +68,6 @@ jobs:
 
         echo '---End---'
 
-jobs:
 - job: Job_2
   displayName: abp-backendadminapp-host
   timeoutInMinutes: 120
