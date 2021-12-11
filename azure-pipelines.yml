@@ -39,12 +39,6 @@ jobs:
       script: >-
         # Write your commands here
         echo 'Install Buildx'
-
-        docker buildx create --name multibuilder --driver docker-container
-
-        docker buildx use multibuilder
-
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
