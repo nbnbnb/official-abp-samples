@@ -40,16 +40,11 @@ jobs:
         # Write your commands here
         echo 'Install Buildx'
 
-        docker buildx create --name multibuilder --driver docker-container
-
-        docker buildx use multibuilder
-
-        docker run --privileged --rm tonistiigi/binfmt --install all
   - task: Bash@3
     displayName: Build & Push Image
     inputs:
       targetType: inline
-      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-authserver-host --push -f ./applications/AuthServer.Host/Dockerfile-ARM .
+      script: docker buildx build --platform linux/arm64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-authserver-host --push -f ./applications/AuthServer.Host/Dockerfile-ARM .
       workingDirectory: MicroserviceDemo
   - task: Docker@2
     displayName: logout
