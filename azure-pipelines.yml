@@ -64,7 +64,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=auth-server'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&server=auth-server&tag=abp-authserver-host'`
 
         echo '---End---'
 
@@ -121,7 +121,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=backend-admin-app'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&server=backend-admin-app&tag=abp-backendadminapp-host'`
 
         echo '---End---'
 
@@ -163,7 +163,7 @@ jobs:
     displayName: Build & Push Image
     inputs:
       targetType: inline
-      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./applications/PublicWebSite.Host/Dockerfile .
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-publicwebsite-host --push -f ./applications/PublicWebSite.Host/Dockerfile .
       workingDirectory: MicroserviceDemo
   - task: Docker@2
     displayName: logout
@@ -178,7 +178,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=public-website'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&server=public-website&tag=abp-publicwebsite-host'`
 
         echo '---End---'
 
@@ -220,7 +220,7 @@ jobs:
     displayName: Build & Push Image
     inputs:
       targetType: inline
-      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./microservices/IdentityService.Host/Dockerfile .
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-identityservice-host --push -f ./microservices/IdentityService.Host/Dockerfile .
       workingDirectory: MicroserviceDemo
   - task: Docker@2
     displayName: logout
@@ -235,7 +235,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=identity-service'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&server=identity-service&tag=abp-identityservice-host'`
 
         echo '---End---'
 
@@ -277,7 +277,7 @@ jobs:
     displayName: Build & Push Image
     inputs:
       targetType: inline
-      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./microservices/TenantManagementService.Host/Dockerfile .
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-tenantmanagementservice-host --push -f ./microservices/TenantManagementService.Host/Dockerfile .
       workingDirectory: MicroserviceDemo
   - task: Docker@2
     displayName: logout
@@ -292,7 +292,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=tenant-management-service'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&server=tenant-management-service&tag=abp-tenantmanagementservice-host'`
 
         echo '---End---'
 
@@ -334,7 +334,7 @@ jobs:
     displayName: Build & Push Image
     inputs:
       targetType: inline
-      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./microservices/BloggingService.Host/Dockerfile .
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-bloggingservice-host --push -f ./microservices/BloggingService.Host/Dockerfile .
       workingDirectory: MicroserviceDemo
   - task: Docker@2
     displayName: logout
@@ -349,7 +349,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=blogging-service'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&server=blogging-service&tag=abp-bloggingservice-host'`
 
         echo '---End---'
 
@@ -391,7 +391,7 @@ jobs:
     displayName: Build & Push Image
     inputs:
       targetType: inline
-      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./microservices/ProductService.Host/Dockerfile .
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-productservice-host --push -f ./microservices/ProductService.Host/Dockerfile .
       workingDirectory: MicroserviceDemo
   - task: Docker@2
     displayName: logout
@@ -406,7 +406,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=product-service'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&server=product-service&tag=abp-productservice-host'`
 
         echo '---End---'
 
@@ -448,7 +448,7 @@ jobs:
     displayName: Build & Push Image
     inputs:
       targetType: inline
-      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./gateways/InternalGateway.Host/Dockerfile .
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-internalgateway-host --push -f ./gateways/InternalGateway.Host/Dockerfile .
       workingDirectory: MicroserviceDemo
   - task: Docker@2
     displayName: logout
@@ -463,7 +463,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=internal-gateway'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&server=internal-gateway&tag=abp-internalgateway-host'`
 
         echo '---End---'
 
@@ -505,7 +505,7 @@ jobs:
     displayName: Build & Push Image
     inputs:
       targetType: inline
-      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./gateways/BackendAdminAppGateway.Host/Dockerfile .
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminappgateway-host --push -f ./gateways/BackendAdminAppGateway.Host/Dockerfile .
       workingDirectory: MicroserviceDemo
   - task: Docker@2
     displayName: logout
@@ -520,7 +520,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=backend-admin-app-gateway'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&server=backend-admin-app-gateway&tag=abp-backendadminapp-host'`
 
         echo '---End---'
 
@@ -562,7 +562,7 @@ jobs:
     displayName: Build & Push Image
     inputs:
       targetType: inline
-      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-backendadminapp-host --push -f ./gateways/PublicWebSiteGateway.Host/Dockerfile .
+      script: docker buildx build --platform linux/arm64,linux/amd64 -t registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-publicwebsitegateway-host --push -f ./gateways/PublicWebSiteGateway.Host/Dockerfile .
       workingDirectory: MicroserviceDemo
   - task: Docker@2
     displayName: logout
@@ -577,6 +577,6 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&param=public-website-gateway'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=Ia2UVrFkC2epUQTkUrg6e621TSySm9TqKN9yCGcr8yMrNtpQ&server=public-website-gateway&tag=abp-publicwebsitegateway-host'`
 
         echo '---End---'
