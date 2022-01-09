@@ -249,6 +249,9 @@ services:
       - Routes__2__DownstreamHostAndPorts__0__Host=product-service
       - Routes__2__DownstreamHostAndPorts__0__Port=80
       - Routes__2__DownstreamScheme=http
+      # BaseUrl - Ocelot 的服务运行地址，要特别注意一下 BaseUrl 是我们外部暴露的 Url
+      # 比如我们的 Ocelot 运行在 http://localhost:5000，但是前面有一个 Nginx 绑定了域名 http://api.demo.com
+      # 那这里我们的 BaseUrl 就是 http://api.demo.com
       - GlobalConfiguration__BaseUrl=https://seoul-arm.zhangjin.tk:51531
       # Dynamic C# API Clients 的配置
       # Self
@@ -283,6 +286,9 @@ services:
       - Routes__1__DownstreamHostAndPorts__0__Host=blogging-service
       - Routes__1__DownstreamHostAndPorts__0__Port=80
       - Routes__1__DownstreamScheme=http
+      # BaseUrl - Ocelot 的服务运行地址，要特别注意一下 BaseUrl 是我们外部暴露的 Url
+      # 比如我们的 Ocelot 运行在 http://localhost:5000，但是前面有一个 Nginx 绑定了域名 http://api.demo.com
+      # 那这里我们的 BaseUrl 就是 http://api.demo.com
       - GlobalConfiguration__BaseUrl=https://seoul-arm.zhangjin.tk:51532
     ports:
       - 51532:443
