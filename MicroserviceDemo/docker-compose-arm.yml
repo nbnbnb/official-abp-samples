@@ -43,7 +43,7 @@ services:
       - AuthServer__RequireHttpsMetadata=true
       # Dynamic C# API Clients 的配置
       # backend-admin-app-gateway 
-      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51531
+      - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
       - Redis__Configuration=redis
     ports:
       - 51512:443
@@ -71,7 +71,7 @@ services:
       # Dynamic C# API Clients 的配置
       # public-website-gateway
       # https://docs.abp.io/en/abp/latest/API/Dynamic-CSharp-API-Clients
-      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51532
+      - RemoteServices__Default__BaseUrl=http://public-website-gateway/
       - Redis__Configuration=redis
     ports:
       - 51513:443
@@ -145,7 +145,7 @@ services:
       - RabbitMQ__Connections__Default__Port=5672
       # Dynamic C# API Clients 的配置
       # internal-gateway
-      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51324
+      - RemoteServices__Default__BaseUrl=http://internal-gateway/
       # Dynamic C# API Clients 的授权信息配置
       - IdentityClients__Authority=https://seoul-arm.zhangjin.tk:51511
       - IdentityClients__RequireHttpsMetadata=true
