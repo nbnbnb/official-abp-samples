@@ -26,6 +26,7 @@ using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.VirtualFileSystem;
+using Microsoft.AspNetCore.Authentication;
 
 namespace KeycloakDemo;
 
@@ -100,7 +101,7 @@ public class KeycloakDemoHttpApiHostModule : AbpModule
             {
                 options.Authority = configuration["AuthServer:Authority"];
                 options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
-                options.Audience = "account";
+                options.Audience = "myclient";
                 options.BackchannelHttpHandler = new HttpClientHandler
                 {
                     ServerCertificateCustomValidationCallback =
@@ -195,6 +196,14 @@ public class KeycloakDemoHttpApiHostModule : AbpModule
         {
             app.UseDeveloperExceptionPage();
         }
+
+        app.Use((httpContext, next) =>
+        {
+            Console.WriteLine("************TOKEN**************");
+            Console.WriteLine(httpContext.Request.Headers["Authorization"].ToString());
+            Console.WriteLine("************TOKEN-end**************");
+            return next();
+        });
 
         app.UseAbpRequestLocalization();
         app.UseCorrelationId();
