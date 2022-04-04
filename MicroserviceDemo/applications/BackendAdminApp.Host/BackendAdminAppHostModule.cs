@@ -26,6 +26,7 @@ using Volo.Abp.TenantManagement.Web;
 using Volo.Abp.UI.Navigation;
 using Volo.Blogging;
 using Volo.Abp.Account;
+using Volo.Abp.SettingManagement.Web;
 
 namespace BackendAdminApp.Host
 {
@@ -36,6 +37,7 @@ namespace BackendAdminApp.Host
         typeof(AbpHttpClientIdentityModelWebModule),
         typeof(AbpIdentityHttpApiClientModule),
         typeof(AbpIdentityWebModule),
+        typeof(AbpSettingManagementWebModule),
         typeof(AbpTenantManagementHttpApiClientModule),
         typeof(AbpTenantManagementWebModule),
         typeof(BloggingApplicationContractsModule),
