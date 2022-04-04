@@ -26,6 +26,7 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.Abp.Threading;
+using Volo.Abp.SettingManagement.Web;
 
 namespace AuthServer.Host
 {
@@ -43,7 +44,8 @@ namespace AuthServer.Host
         typeof(AbpAccountWebIdentityServerModule),
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
         typeof(AbpTenantManagementEntityFrameworkCoreModule),
-        typeof(AbpTenantManagementApplicationContractsModule)
+        typeof(AbpTenantManagementApplicationContractsModule),
+        typeof(AbpSettingManagementWebModule)
     )]
     public class AuthServerHostModule : AbpModule
     {
