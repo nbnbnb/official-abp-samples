@@ -74,7 +74,8 @@ namespace BackendAdminApp.Host
                 })
                 .AddCookie("Cookies", options =>
                 {
-                    options.ExpireTimeSpan = TimeSpan.FromDays(365);
+                    //options.ExpireTimeSpan = TimeSpan.FromDays(365);
+                    options.ExpireTimeSpan = TimeSpan.FromHours(1);
                 })
                 .AddOpenIdConnect("oidc", options =>
                 {

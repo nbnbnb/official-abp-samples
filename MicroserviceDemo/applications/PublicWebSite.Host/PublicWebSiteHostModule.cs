@@ -9,15 +9,16 @@ using ProductManagement;
 using StackExchange.Redis;
 using Volo.Abp;
 using Volo.Abp.Account;
-using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Authentication.OAuth;
 using Volo.Abp.AspNetCore.Mvc.Client;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
 using Volo.Abp.Autofac;
 using Volo.Abp.Http.Client.IdentityModel.Web;
+using Volo.Abp.Identity.Web;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.PermissionManagement;
 using Volo.Abp.UI.Navigation;
 using Volo.Blogging;
 
@@ -55,6 +56,11 @@ namespace PublicWebSite.Host
                 options.MenuContributors.Add(new PublicWebSiteMenuContributor());
             });
 
+            Configure<AbpNavigationOptions>(options =>
+            {
+                options.MenuContributors.Add(new BackendAdminAppMenuContributor(configuration));
+            });
+
             context.Services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = "Cookies";
@@ -79,7 +85,7 @@ namespace PublicWebSite.Host
                     options.Scope.Add("PublicWebSiteGateway");
                     options.Scope.Add("ProductService");
                     options.Scope.Add("BloggingService");
-                    
+
                 });
 
             context.Services.AddStackExchangeRedisCache(options =>
@@ -100,7 +106,7 @@ namespace PublicWebSite.Host
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
-            
+
             if (MsDemoConsts.IsMultiTenancyEnabled)
             {
                 app.UseMultiTenancy();
