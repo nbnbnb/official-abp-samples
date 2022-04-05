@@ -8,6 +8,8 @@ using MsDemo.Shared;
 using ProductManagement;
 using StackExchange.Redis;
 using Volo.Abp;
+using Volo.Abp.Account;
+using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Authentication.OAuth;
 using Volo.Abp.AspNetCore.Mvc.Client;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
@@ -29,7 +31,8 @@ namespace PublicWebSite.Host
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
         typeof(BloggingHttpApiClientModule),
         typeof(BloggingWebModule),
-        typeof(ProductManagementHttpApiClientModule)
+        typeof(ProductManagementHttpApiClientModule),
+        typeof(AbpAccountApplicationModule)
         )]
     public class PublicWebSiteHostModule : AbpModule
     {
