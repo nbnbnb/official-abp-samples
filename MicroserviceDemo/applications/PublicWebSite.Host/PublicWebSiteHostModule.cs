@@ -8,17 +8,14 @@ using MsDemo.Shared;
 using ProductManagement;
 using StackExchange.Redis;
 using Volo.Abp;
-using Volo.Abp.Account;
 using Volo.Abp.AspNetCore.Authentication.OAuth;
 using Volo.Abp.AspNetCore.Mvc.Client;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
 using Volo.Abp.Autofac;
 using Volo.Abp.Http.Client.IdentityModel.Web;
-using Volo.Abp.Identity.Web;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
-using Volo.Abp.PermissionManagement;
 using Volo.Abp.UI.Navigation;
 using Volo.Blogging;
 
@@ -32,8 +29,7 @@ namespace PublicWebSite.Host
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
         typeof(BloggingHttpApiClientModule),
         typeof(BloggingWebModule),
-        typeof(ProductManagementHttpApiClientModule),
-        typeof(AbpAccountApplicationModule)
+        typeof(ProductManagementHttpApiClientModule)
         )]
     public class PublicWebSiteHostModule : AbpModule
     {
