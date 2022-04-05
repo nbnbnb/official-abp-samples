@@ -42,9 +42,10 @@ namespace BackendAdminApp.Host
         typeof(ProductManagementHttpApiClientModule),
         typeof(ProductManagementWebModule),
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
-        typeof(AbpFeatureManagementHttpApiClientModule)
+        typeof(AbpFeatureManagementHttpApiClientModule),
+        typeof(AbpIdentityHttpApiModule)
         )]
-        public class BackendAdminAppHostModule : AbpModule
+    public class BackendAdminAppHostModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
@@ -90,7 +91,7 @@ namespace BackendAdminApp.Host
                     options.Scope.Add("IdentityService");
                     options.Scope.Add("ProductService");
                     options.Scope.Add("TenantManagementService");
-                    
+
                 });
 
             context.Services.AddSwaggerGen(
@@ -118,7 +119,7 @@ namespace BackendAdminApp.Host
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
-            
+
             if (MsDemoConsts.IsMultiTenancyEnabled)
             {
                 app.UseMultiTenancy();
