@@ -41,8 +41,6 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Public_Authority_URL}
       - AuthServer__RequireHttpsMetadata=true
-      # Dynamic C# API Clients 的配置
-      # backend-admin-app-gateway 
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
       - Redis__Configuration=redis
     ports:
@@ -65,12 +63,9 @@ services:
       # 没有密码，则设置为空，不能写成 ""
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
+      # 页面跳转的 URL，这个是外网站点，不能配置成内网模式
       - AuthServer__Authority=${Public_Authority_URL}
       - AuthServer__RequireHttpsMetadata=true
-      # Dynamic C# API Clients 的配置
-      # public-website-gateway
-      # https://docs.abp.io/en/abp/latest/API/Dynamic-CSharp-API-Clients
       - RemoteServices__Default__BaseUrl=http://public-website-gateway/
       - Redis__Configuration=redis
     ports:
@@ -90,7 +85,7 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__Authority=http://auth-server:51511/
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - Redis__Configuration=redis
@@ -113,7 +108,7 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__Authority=http://auth-server:51511/
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - Redis__Configuration=redis
@@ -136,18 +131,17 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__Authority=http://auth-server:51511/
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - ConnectionStrings__Blogging=mongodb://admin:kkking@mongo:27017/MsDemo_Blogging?authSource=admin
       - Redis__Configuration=redis
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
-      # Dynamic C# API Clients 的配置
-      # internal-gateway
+      # Dynamic C# API Clients 的默认访问地址
       - RemoteServices__Default__BaseUrl=http://internal-gateway/
       # Dynamic C# API Clients 的授权信息配置 ？？？
-      - IdentityClients__Authority=http://auth-server:51511
+      - IdentityClients__Authority=http://auth-server:51511/
       - IdentityClients__RequireHttpsMetadata=false
     ports:
       - 51521:443
@@ -166,7 +160,7 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__Authority=http://auth-server:51511/
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - ConnectionStrings__ProductManagement=${DB_MsDemo_ProductManagement}
@@ -195,7 +189,7 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__Authority=http://auth-server:51511/
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - Redis__Configuration=redis
@@ -211,10 +205,7 @@ services:
       - Routes__3__DownstreamHostAndPorts__0__Host=blogging-service
       - Routes__3__DownstreamHostAndPorts__0__Port=80
       - Routes__3__DownstreamScheme=http
-      # BaseUrl - Ocelot 的服务运行地址，要特别注意一下 BaseUrl 是我们外部暴露的 Url
-      # 比如我们的 Ocelot 运行在 http://localhost:5000，但是前面有一个 Nginx 绑定了域名 http://api.demo.com
-      # 那这里我们的 BaseUrl 就是 http://api.demo.com
-      - GlobalConfiguration__BaseUrl=https://seoul-arm.zhangjin.tk:51324
+      - GlobalConfiguration__BaseUrl=http://internal-gateway/
     ports:
       - 51324:443
 
@@ -236,7 +227,7 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__Authority=http://auth-server:51511/
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - Redis__Configuration=redis
@@ -249,13 +240,9 @@ services:
       - Routes__2__DownstreamHostAndPorts__0__Host=product-service
       - Routes__2__DownstreamHostAndPorts__0__Port=80
       - Routes__2__DownstreamScheme=http
-      # BaseUrl - Ocelot 的服务运行地址，要特别注意一下 BaseUrl 是我们外部暴露的 Url
-      # 比如我们的 Ocelot 运行在 http://localhost:5000，但是前面有一个 Nginx 绑定了域名 http://api.demo.com
-      # 那这里我们的 BaseUrl 就是 http://api.demo.com
-      - GlobalConfiguration__BaseUrl=https://seoul-arm.zhangjin.tk:51531
-      # Dynamic C# API Clients 的配置
-      # Self
-      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51531
+      - GlobalConfiguration__BaseUrl=http://backend-admin-app-gateway/
+      # 多余的？？？
+      - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
     ports:
       - 51531:443
 
@@ -286,10 +273,7 @@ services:
       - Routes__1__DownstreamHostAndPorts__0__Host=blogging-service
       - Routes__1__DownstreamHostAndPorts__0__Port=80
       - Routes__1__DownstreamScheme=http
-      # BaseUrl - Ocelot 的服务运行地址，要特别注意一下 BaseUrl 是我们外部暴露的 Url
-      # 比如我们的 Ocelot 运行在 http://localhost:5000，但是前面有一个 Nginx 绑定了域名 http://api.demo.com
-      # 那这里我们的 BaseUrl 就是 http://api.demo.com
-      - GlobalConfiguration__BaseUrl=https://seoul-arm.zhangjin.tk:51532
+      - GlobalConfiguration__BaseUrl=http://public-website-gateway
     ports:
       - 51532:443
 
