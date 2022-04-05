@@ -24,5 +24,11 @@ RUN dotnet publish "ProductService.Host.csproj" --no-restore -nowarn:msb3202,msb
 
 FROM base AS final
 WORKDIR /app
+
+# Change timezone to local time
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN mkdir https
+
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "ProductService.Host.dll"]
