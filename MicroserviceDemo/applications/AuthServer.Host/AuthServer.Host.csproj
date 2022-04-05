@@ -39,8 +39,17 @@
         <PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="5.0.0" />
 		<PackageReference Include="Volo.Abp.SettingManagement.Web" Version="5.0.0" />
 		<PackageReference Include="Volo.Abp.Identity.Web" Version="5.0.0" />
-		<PackageReference Include="Volo.Abp.TenantManagement.Web" Version="5.0.0" />
-		 
+		<PackageReference Include="Volo.Abp.TenantManagement.Web" Version="5.0.0" />		
+		<PackageReference Include="Volo.Abp.Account.HttpApi" Version="5.0.0" />
+		<PackageReference Include="Volo.Abp.PermissionManagement.HttpApi" Version="5.0.0" />
+		<PackageReference Include="Volo.Abp.TenantManagement.HttpApi" Version="5.0.0" />
+		<PackageReference Include="Volo.Abp.FeatureManagement.HttpApi" Version="5.0.0" />
+		<PackageReference Include="Volo.Abp.SettingManagement.HttpApi" Version="5.0.0" />
+		<PackageReference Include="Volo.Abp.TenantManagement.Application" Version="5.0.0" />
+		<PackageReference Include="Volo.Abp.Identity.Application" Version="5.0.0" />
+		<PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="5.0.0" />
+		<PackageReference Include="Volo.Abp.SettingManagement.Application" Version="5.0.0" />
+			
         <ProjectReference Include="..\..\shared\MsDemo.Shared\MsDemo.Shared.csproj" />
     </ItemGroup>
 
