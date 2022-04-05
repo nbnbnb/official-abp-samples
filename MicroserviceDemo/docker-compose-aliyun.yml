@@ -17,7 +17,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
-      - Redis__Configuration=redis
+      - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
     ports:
@@ -42,7 +42,7 @@ services:
       - AuthServer__Authority=${Public_Authority_URL}
       - AuthServer__RequireHttpsMetadata=true
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
-      - Redis__Configuration=redis
+      - Redis__Configuration=${Redis_URL}
     ports:
       - 51512:443
   
@@ -67,7 +67,7 @@ services:
       - AuthServer__Authority=${Public_Authority_URL}
       - AuthServer__RequireHttpsMetadata=true
       - RemoteServices__Default__BaseUrl=http://public-website-gateway/
-      - Redis__Configuration=redis
+      - Redis__Configuration=${Redis_URL}
     ports:
       - 51513:443
 
@@ -88,7 +88,7 @@ services:
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
-      - Redis__Configuration=redis
+      - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
     ports:
@@ -111,7 +111,7 @@ services:
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
-      - Redis__Configuration=redis
+      - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
     ports:
@@ -134,8 +134,8 @@ services:
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
-      - ConnectionStrings__Blogging=mongodb://admin:kkking@mongo:27017/MsDemo_Blogging?authSource=admin
-      - Redis__Configuration=redis
+      - ConnectionStrings__Blogging=${Mongo_URL}
+      - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
       # Dynamic C# API Clients 的默认访问地址
@@ -164,7 +164,7 @@ services:
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - ConnectionStrings__ProductManagement=${DB_MsDemo_ProductManagement}
-      - Redis__Configuration=redis
+      - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=rabbitmq
       - RabbitMQ__Connections__Default__Port=5672
     ports:
@@ -192,7 +192,7 @@ services:
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
-      - Redis__Configuration=redis
+      - Redis__Configuration=${Redis_URL}
       - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
       - Routes__0__DownstreamHostAndPorts__0__Port=80
       - Routes__0__DownstreamScheme=http
@@ -230,7 +230,7 @@ services:
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
-      - Redis__Configuration=redis
+      - Redis__Configuration=${Redis_URL}
       - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
       - Routes__0__DownstreamHostAndPorts__0__Port=80
       - Routes__0__DownstreamScheme=http
@@ -266,7 +266,7 @@ services:
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
-      - Redis__Configuration=redis
+      - Redis__Configuration=${Redis_URL}
       - Routes__0__DownstreamHostAndPorts__0__Host=product-service
       - Routes__0__DownstreamHostAndPorts__0__Port=80
       - Routes__0__DownstreamScheme=http
