@@ -43,7 +43,8 @@ namespace BackendAdminApp.Host
         typeof(ProductManagementWebModule),
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
         typeof(AbpFeatureManagementHttpApiClientModule),
-        typeof(AbpIdentityHttpApiModule)
+        typeof(AbpIdentityHttpApiModule),
+        typeof(AbpTenantManagementHttpApiModule)
         )]
     public class BackendAdminAppHostModule : AbpModule
     {
