@@ -12,7 +12,7 @@ services:
       - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     environment:
       - ElasticSearch__Url=${ES_URL}
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=ARM
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
@@ -35,7 +35,7 @@ services:
       - backend-admin-app-gateway
     environment:
       - ElasticSearch__Url=${ES_URL}
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=ARM
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
@@ -58,7 +58,7 @@ services:
       - public-website-gateway
     environment:
       - ElasticSearch__Url=${ES_URL}
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=ARM
       - ASPNETCORE_URLS=https://+:443;http://+:80
       # 没有密码，则设置为空，不能写成 ""
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
@@ -81,7 +81,7 @@ services:
       - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     environment:
       - ElasticSearch__Url=${ES_URL}
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=ARM
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
@@ -104,7 +104,7 @@ services:
       - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     environment:
       - ElasticSearch__Url=${ES_URL}
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=ARM
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
@@ -127,7 +127,7 @@ services:
       - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     environment:
       - ElasticSearch__Url=${ES_URL}
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=ARM
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
@@ -156,7 +156,7 @@ services:
       - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
     environment:
       - ElasticSearch__Url=${ES_URL}
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=ARM
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
@@ -185,7 +185,7 @@ services:
       - tenant-management-service
     environment:
       - ElasticSearch__Url=${ES_URL}
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=ARM
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
@@ -223,7 +223,7 @@ services:
       - tenant-management-service
     environment:
       - ElasticSearch__Url=${ES_URL}
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=ARM
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
@@ -259,7 +259,7 @@ services:
       - product-service
     environment:
       - ElasticSearch__Url=${ES_URL}
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=ARM
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
