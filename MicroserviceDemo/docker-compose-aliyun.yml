@@ -41,7 +41,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Public_Authority_URL}
-      - AuthServer__RequireHttpsMetadata=true
+      - AuthServer__RequireHttpsMetadata=${Public_Authority_RequireHttpsMetadata}
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
       - Redis__Configuration=${Redis_URL}
       - Seq__Url=${Seq_URL}
@@ -69,7 +69,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       # 页面跳转的 URL，这个是外网站点，不能配置成内网模式
       - AuthServer__Authority=${Public_Authority_URL}
-      - AuthServer__RequireHttpsMetadata=true
+      - AuthServer__RequireHttpsMetadata=${Public_Authority_RequireHttpsMetadata}
       - RemoteServices__Default__BaseUrl=http://public-website-gateway/
       - Redis__Configuration=${Redis_URL}
       - Seq__Url=${Seq_URL}
@@ -93,7 +93,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
-      - AuthServer__RequireHttpsMetadata=false
+      - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
@@ -145,7 +145,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
-      - AuthServer__RequireHttpsMetadata=false
+      - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - ConnectionStrings__Blogging=${Mongo_URL}
       - Redis__Configuration=${Redis_URL}
@@ -155,7 +155,7 @@ services:
       - RemoteServices__Default__BaseUrl=http://internal-gateway/
       # Dynamic C# API Clients 的授权信息配置 ？？？
       - IdentityClients__Authority=${Private_Authority_URL}
-      - IdentityClients__RequireHttpsMetadata=false
+      - IdentityClients__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - Seq__Url=${Seq_URL}
       - AuthServer__ValidIssuers__0=${Private_Authority_URL}
       - AuthServer__ValidIssuers__1=${Public_Authority_URL}
@@ -177,7 +177,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
-      - AuthServer__RequireHttpsMetadata=false
+      - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - ConnectionStrings__ProductManagement=${DB_MsDemo_ProductManagement}
       - Redis__Configuration=${Redis_URL}
@@ -209,7 +209,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
-      - AuthServer__RequireHttpsMetadata=false
+      - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - Redis__Configuration=${Redis_URL}
       - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
@@ -250,7 +250,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
-      - AuthServer__RequireHttpsMetadata=false
+      - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - Redis__Configuration=${Redis_URL}
       - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
@@ -289,7 +289,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
-      - AuthServer__RequireHttpsMetadata=false
+      - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - Redis__Configuration=${Redis_URL}
       - Routes__0__DownstreamHostAndPorts__0__Host=product-service
