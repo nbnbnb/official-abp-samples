@@ -164,8 +164,8 @@ namespace AuthServer.Host
                     new[] { "hybrid" },
                     commonSecret,
                     permissions: new[] { IdentityPermissions.Users.Default, "ProductManagement.Product" },
-                    redirectUri: "https://seoul-arm.zhangjin.tk:51512/signin-oidc",
-                    postLogoutRedirectUri: "https://seoul-arm.zhangjin.tk:51512/signout-callback-oidc"
+                    redirectUri: "https://backend-admin-app.zhangjin.tk:51512/signin-oidc",
+                    postLogoutRedirectUri: "https://backend-admin-app.zhangjin.tk:51512/signout-callback-oidc"
                 );
                 // ARM Host
                 await CreateClientAsync(
@@ -173,8 +173,8 @@ namespace AuthServer.Host
                     commonScopes.Union(new[] { "PublicWebSiteGateway", "BloggingService", "ProductService" }),
                     new[] { "hybrid" },
                     commonSecret,
-                    redirectUri: "https://seoul-arm.zhangjin.tk:51513/signin-oidc",
-                    postLogoutRedirectUri: "https://seoul-arm.zhangjin.tk:51513/signout-callback-oidc"
+                    redirectUri: "https://public-website.zhangjin.tk:51513/signin-oidc",
+                    postLogoutRedirectUri: "https://public-website.zhangjin.tk:51513/signout-callback-oidc"
                 );
             }
             else {
