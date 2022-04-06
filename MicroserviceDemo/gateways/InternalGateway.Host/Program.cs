@@ -26,6 +26,7 @@ namespace InternalGateway.Host
                 .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
                 .Enrich.WithProperty("Application", "InternalGateway")
                 .Enrich.FromLogContext()
+                .WriteTo.Seq(configuration["Seq:Url"])
                 .WriteTo.File("Logs/logs.txt")
                 .WriteTo.Elasticsearch(
                     new ElasticsearchSinkOptions(new Uri(configuration["ElasticSearch:Url"]))

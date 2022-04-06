@@ -44,6 +44,7 @@ services:
       - AuthServer__RequireHttpsMetadata=true
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
       - Redis__Configuration=${Redis_URL}
+      - Seq__Url=${Seq_URL}
     ports:
       - 51512:443
   
@@ -69,6 +70,7 @@ services:
       - AuthServer__RequireHttpsMetadata=true
       - RemoteServices__Default__BaseUrl=http://public-website-gateway/
       - Redis__Configuration=${Redis_URL}
+      - Seq__Url=${Seq_URL}
     ports:
       - 51513:443
 
@@ -92,6 +94,7 @@ services:
       - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
+      - Seq__Url=${Seq_URL}
     ports:
       - 51522:443
 
@@ -115,6 +118,7 @@ services:
       - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
+      - Seq__Url=${Seq_URL}
     ports:
       - 51524:443
 
@@ -144,6 +148,7 @@ services:
       # Dynamic C# API Clients 的授权信息配置 ？？？
       - IdentityClients__Authority=${Private_Authority_URL}
       - IdentityClients__RequireHttpsMetadata=false
+      - Seq__Url=${Seq_URL}
     ports:
       - 51521:443
 
@@ -168,6 +173,7 @@ services:
       - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
+      - Seq__Url=${Seq_URL}
     ports:
       - 51523:443
 
@@ -207,6 +213,7 @@ services:
       - Routes__3__DownstreamHostAndPorts__0__Port=80
       - Routes__3__DownstreamScheme=http
       - GlobalConfiguration__BaseUrl=http://internal-gateway/
+      - Seq__Url=${Seq_URL}
     ports:
       - 51324:443
 
@@ -244,6 +251,7 @@ services:
       - GlobalConfiguration__BaseUrl=http://backend-admin-app-gateway/
       # 多余的？？？
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
+      - Seq__Url=${Seq_URL}
     ports:
       - 51531:443
 
@@ -275,6 +283,7 @@ services:
       - Routes__1__DownstreamHostAndPorts__0__Port=80
       - Routes__1__DownstreamScheme=http
       - GlobalConfiguration__BaseUrl=http://public-website-gateway
+      - Seq__Url=${Seq_URL}
     ports:
       - 51532:443
 
