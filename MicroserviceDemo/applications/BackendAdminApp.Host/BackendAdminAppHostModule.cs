@@ -115,9 +115,6 @@ namespace BackendAdminApp.Host
             context.Services.AddDataProtection().PersistKeysToStackExchangeRedis(redis, "MsDemo-DataProtection-Keys");
 
 
-            context.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, AuthorizationMiddlewareResultHandler>();
-            context.Services.Replace(ServiceDescriptor.Singleton<IAbpAuthorizationExceptionHandler, AuthorizationExceptionHandler>());
-
         }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
