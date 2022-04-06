@@ -47,6 +47,58 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="wwwroot\product-images\asus.jpg" />
+    <EmbeddedResource Remove="wwwroot\product-images\beats.jpg" />
+    <EmbeddedResource Remove="wwwroot\product-images\bluecat.jpg" />
+    <EmbeddedResource Remove="wwwroot\product-images\lego.jpg" />
+    <EmbeddedResource Remove="wwwroot\product-images\nikon.jpg" />
+    <EmbeddedResource Remove="wwwroot\product-images\noimage.jpg" />
+    <EmbeddedResource Remove="wwwroot\product-images\oki.jpg" />
+    <EmbeddedResource Remove="wwwroot\product-images\playstation.jpg" />
+    <EmbeddedResource Remove="wwwroot\product-images\rampage.jpg" />
+    <EmbeddedResource Remove="wwwroot\product-images\sunny.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\product-images\asus.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\product-images\beats.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\product-images\bluecat.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\product-images\lego.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\product-images\nikon.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\product-images\noimage.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\product-images\oki.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\product-images\playstation.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\product-images\rampage.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\product-images\sunny.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\blog-images\100d4c0445cbf55f687339ec8e656abb.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="tempkey.jwk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
