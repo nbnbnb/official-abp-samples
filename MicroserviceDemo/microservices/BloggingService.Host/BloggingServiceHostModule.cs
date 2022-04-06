@@ -37,6 +37,8 @@ using Volo.Blogging.Blogs;
 using Volo.Blogging.Files;
 using Volo.Blogging.MongoDB;
 using Volo.Abp.Uow;
+using Volo.Abp.BlobStoring.FileSystem;
+using Volo.Abp.BlobStoring;
 
 namespace BloggingService.Host
 {
@@ -93,9 +95,15 @@ namespace BloggingService.Host
                 options.UseSqlServer();
             });
 
-            Configure<BlogFileOptions>(options =>
+            Configure<AbpBlobStoringOptions>(options =>
             {
-                options.FileUploadLocalFolder = Path.Combine(hostingEnvironment.WebRootPath, "files");
+                options.Containers.Configure("blogging-files", container =>
+                {
+                    container.UseFileSystem(fileSystem =>
+                    {
+                        fileSystem.BasePath = Path.Combine(hostingEnvironment.WebRootPath, "files");
+                    });
+                });
             });
 
             context.Services.AddStackExchangeRedisCache(options =>
