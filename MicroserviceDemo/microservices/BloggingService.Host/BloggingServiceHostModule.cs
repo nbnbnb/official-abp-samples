@@ -71,11 +71,12 @@ namespace BloggingService.Host
             });
 
             context.Services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(options =>
+                .AddJwtBearer(options =>
                 {
                     options.Authority = configuration["AuthServer:Authority"];
-                    options.ApiName = configuration["AuthServer:ApiName"];
+                    options.Audience = configuration["AuthServer:ApiName"];
                     options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
+                    options.TokenValidationParameters.ValidIssuers = configuration.GetSection("AuthServer:ValidIssuers").As<string[]>();
                 });
 
             context.Services.AddSwaggerGen(options =>
