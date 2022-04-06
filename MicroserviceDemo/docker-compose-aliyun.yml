@@ -45,6 +45,8 @@ services:
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
       - Redis__Configuration=${Redis_URL}
       - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51512:443
   
@@ -71,6 +73,8 @@ services:
       - RemoteServices__Default__BaseUrl=http://public-website-gateway/
       - Redis__Configuration=${Redis_URL}
       - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51513:443
 
@@ -95,6 +99,8 @@ services:
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
       - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51522:443
 
@@ -119,6 +125,8 @@ services:
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
       - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51524:443
 
@@ -149,6 +157,8 @@ services:
       - IdentityClients__Authority=${Private_Authority_URL}
       - IdentityClients__RequireHttpsMetadata=false
       - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51521:443
 
@@ -174,6 +184,8 @@ services:
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
       - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51523:443
 
@@ -214,6 +226,8 @@ services:
       - Routes__3__DownstreamScheme=http
       - GlobalConfiguration__BaseUrl=http://internal-gateway/
       - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51324:443
 
@@ -252,6 +266,8 @@ services:
       # 多余的？？？
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
       - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51531:443
 
@@ -284,6 +300,8 @@ services:
       - Routes__1__DownstreamScheme=http
       - GlobalConfiguration__BaseUrl=http://public-website-gateway
       - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51532:443
 
