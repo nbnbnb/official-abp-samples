@@ -34,7 +34,7 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.Blogging;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 
 namespace BackendAdminAppGateway.Host
 {
@@ -78,7 +78,7 @@ namespace BackendAdminAppGateway.Host
                     options.Authority = configuration["AuthServer:Authority"];
                     options.Audience = configuration["AuthServer:ApiName"];
                     options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
-                    options.TokenValidationParameters.ValidIssuers = configuration.GetSection("AuthServer:ValidIssuers").As<string[]>();
+                    options.TokenValidationParameters.ValidIssuers = configuration.GetSection("AuthServer:ValidIssuers").Get<string[]>();
                 });
 
             context.Services.AddSwaggerGen(options =>

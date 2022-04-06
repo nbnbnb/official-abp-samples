@@ -39,6 +39,7 @@ using Volo.Blogging.MongoDB;
 using Volo.Abp.Uow;
 using Volo.Abp.BlobStoring.FileSystem;
 using Volo.Abp.BlobStoring;
+using Microsoft.Extensions.Configuration;
 
 namespace BloggingService.Host
 {
@@ -76,7 +77,7 @@ namespace BloggingService.Host
                     options.Authority = configuration["AuthServer:Authority"];
                     options.Audience = configuration["AuthServer:ApiName"];
                     options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
-                    options.TokenValidationParameters.ValidIssuers = configuration.GetSection("AuthServer:ValidIssuers").As<string[]>();
+                    options.TokenValidationParameters.ValidIssuers = configuration.GetSection("AuthServer:ValidIssuers").Get<string[]>();
                 });
 
             context.Services.AddSwaggerGen(options =>

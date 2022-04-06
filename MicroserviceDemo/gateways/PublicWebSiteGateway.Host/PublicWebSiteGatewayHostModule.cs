@@ -24,6 +24,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.Security.Claims;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Blogging;
+using Microsoft.Extensions.Configuration;
 
 namespace PublicWebSiteGateway.Host
 {
@@ -53,7 +54,7 @@ namespace PublicWebSiteGateway.Host
                     options.Authority = configuration["AuthServer:Authority"];
                     options.Audience = configuration["AuthServer:ApiName"];
                     options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
-                    options.TokenValidationParameters.ValidIssuers = configuration.GetSection("AuthServer:ValidIssuers").As<string[]>();
+                    options.TokenValidationParameters.ValidIssuers = configuration.GetSection("AuthServer:ValidIssuers").Get<string[]>();
                 });
 
             context.Services.AddSwaggerGen(options =>
