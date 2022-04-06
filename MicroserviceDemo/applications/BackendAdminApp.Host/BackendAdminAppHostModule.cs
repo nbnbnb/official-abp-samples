@@ -67,7 +67,6 @@ namespace BackendAdminApp.Host
                 options.MenuContributors.Add(new BackendAdminAppMenuContributor(configuration));
             });
 
-            /*
             context.Services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = "Cookies";
@@ -75,8 +74,7 @@ namespace BackendAdminApp.Host
                 })
                 .AddCookie("Cookies", options =>
                 {
-                    //options.ExpireTimeSpan = TimeSpan.FromDays(365);
-                    options.ExpireTimeSpan = TimeSpan.FromHours(1);
+                    options.ExpireTimeSpan = TimeSpan.FromDays(365);
                 })
                 .AddOpenIdConnect("oidc", options =>
                 {
@@ -96,7 +94,6 @@ namespace BackendAdminApp.Host
                     options.Scope.Add("TenantManagementService");
 
                 });
-            */
 
             context.Services.AddSwaggerGen(
                 options =>
