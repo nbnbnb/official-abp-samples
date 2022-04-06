@@ -28,6 +28,7 @@ namespace AuthServer.Host
                 .Enrich.WithProperty("Application", "AuthServer")
                 .Enrich.FromLogContext()
                 .WriteTo.File("Logs/logs.txt")
+                .WriteTo.Seq(configuration["Seq:Url"])
                 .WriteTo.Elasticsearch(
                     new ElasticsearchSinkOptions(new Uri(configuration["ElasticSearch:Url"]))
                     {

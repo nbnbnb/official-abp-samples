@@ -20,6 +20,7 @@ services:
       - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
+      - Seq__Url=${Seq_URL}
     ports:
       - 51511:443
 
