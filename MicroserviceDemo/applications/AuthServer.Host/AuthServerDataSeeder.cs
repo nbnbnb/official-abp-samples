@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Hosting;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Authorization.Permissions;
@@ -26,6 +27,7 @@ namespace AuthServer.Host
         private readonly IIdentityResourceDataSeeder _identityResourceDataSeeder;
         private readonly IGuidGenerator _guidGenerator;
         private readonly IPermissionDataSeeder _permissionDataSeeder;
+        private readonly IWebHostEnvironment _env;
 
         public AuthServerDataSeeder(
             IClientRepository clientRepository,
@@ -33,7 +35,8 @@ namespace AuthServer.Host
             IIdentityResourceDataSeeder identityResourceDataSeeder,
             IGuidGenerator guidGenerator,
             IPermissionDataSeeder permissionDataSeeder,
-            IApiScopeRepository apiScopeRepository)
+            IApiScopeRepository apiScopeRepository,
+            IWebHostEnvironment env)
         {
             _clientRepository = clientRepository;
             _apiResourceRepository = apiResourceRepository;
@@ -41,6 +44,7 @@ namespace AuthServer.Host
             _guidGenerator = guidGenerator;
             _permissionDataSeeder = permissionDataSeeder;
             _apiScopeRepository = apiScopeRepository;
+            _env = env;
         }
 
         [UnitOfWork]
@@ -50,6 +54,7 @@ namespace AuthServer.Host
             await CreateApiScopesAsync();
             await CreateApiResourcesAsync();
             await CreateClientsAsync();
+
         }
 
         private async Task CreateApiScopesAsync()
@@ -149,25 +154,49 @@ namespace AuthServer.Host
                 commonSecret,
                 permissions: new[] { IdentityPermissions.Users.Default, TenantManagementPermissions.Tenants.Default, "ProductManagement.Product" }
             );
-            // ARM Host
-            await CreateClientAsync(
-                "backend-admin-app-client",
-                commonScopes.Union(new[] { "BackendAdminAppGateway", "IdentityService", "ProductService", "TenantManagementService" }),
-                new[] { "hybrid" },
-                commonSecret,
-                permissions: new[] { IdentityPermissions.Users.Default, "ProductManagement.Product" },
-                redirectUri: "https://seoul-arm.zhangjin.tk:51512/signin-oidc",
-                postLogoutRedirectUri: "https://seoul-arm.zhangjin.tk:51512/signout-callback-oidc"
-            );
-            // ARM Host
-            await CreateClientAsync(
-                "public-website-client",
-                commonScopes.Union(new[] { "PublicWebSiteGateway", "BloggingService", "ProductService" }),
-                new[] { "hybrid" },
-                commonSecret,
-                redirectUri: "https://seoul-arm.zhangjin.tk:51513/signin-oidc",
-                postLogoutRedirectUri: "https://seoul-arm.zhangjin.tk:51513/signout-callback-oidc"
-            );
+
+            if (_env.EnvironmentName == "ARM")
+            {
+                // ARM Host
+                await CreateClientAsync(
+                    "backend-admin-app-client",
+                    commonScopes.Union(new[] { "BackendAdminAppGateway", "IdentityService", "ProductService", "TenantManagementService" }),
+                    new[] { "hybrid" },
+                    commonSecret,
+                    permissions: new[] { IdentityPermissions.Users.Default, "ProductManagement.Product" },
+                    redirectUri: "https://seoul-arm.zhangjin.tk:51512/signin-oidc",
+                    postLogoutRedirectUri: "https://seoul-arm.zhangjin.tk:51512/signout-callback-oidc"
+                );
+                // ARM Host
+                await CreateClientAsync(
+                    "public-website-client",
+                    commonScopes.Union(new[] { "PublicWebSiteGateway", "BloggingService", "ProductService" }),
+                    new[] { "hybrid" },
+                    commonSecret,
+                    redirectUri: "https://seoul-arm.zhangjin.tk:51513/signin-oidc",
+                    postLogoutRedirectUri: "https://seoul-arm.zhangjin.tk:51513/signout-callback-oidc"
+                );
+            }
+            else {
+                await CreateClientAsync(
+                    "backend-admin-app-client",
+                    commonScopes.Union(new[] { "BackendAdminAppGateway", "IdentityService", "ProductService", "TenantManagementService" }),
+                    new[] { "hybrid" },
+                    commonSecret,
+                    permissions: new[] { IdentityPermissions.Users.Default, "ProductManagement.Product" },
+                    redirectUri: "https://localhost:44354/signin-oidc",
+                    postLogoutRedirectUri: "https://localhost:44354/signout-callback-oidc"
+                );
+
+                await CreateClientAsync(
+                    "public-website-client",
+                    commonScopes.Union(new[] { "PublicWebSiteGateway", "BloggingService", "ProductService" }),
+                    new[] { "hybrid" },
+                    commonSecret,
+                    redirectUri: "https://localhost:44335/signin-oidc",
+                    postLogoutRedirectUri: "https://localhost:44335/signout-callback-oidc"
+                );
+            }
 
             await CreateClientAsync(
                 "blogging-service-client",
