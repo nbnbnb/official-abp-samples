@@ -177,7 +177,8 @@ namespace AuthServer.Host
                     postLogoutRedirectUri: "https://public-website.zhangjin.tk:51513/signout-callback-oidc"
                 );
             }
-            else {
+            else
+            {
                 await CreateClientAsync(
                     "backend-admin-app-client",
                     commonScopes.Union(new[] { "BackendAdminAppGateway", "IdentityService", "ProductService", "TenantManagementService" }),
