@@ -25,6 +25,9 @@ using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.Web;
 using Volo.Abp.UI.Navigation;
 using Volo.Blogging;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.AspNetCore.ExceptionHandling;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace BackendAdminApp.Host
 {
@@ -95,6 +98,7 @@ namespace BackendAdminApp.Host
 
                 });
 
+
             context.Services.AddSwaggerGen(
                 options =>
                 {
@@ -108,11 +112,15 @@ namespace BackendAdminApp.Host
             });
 
             var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
-            context.Services.AddDataProtection()
-                .PersistKeysToStackExchangeRedis(redis, "MsDemo-DataProtection-Keys");
+            context.Services.AddDataProtection().PersistKeysToStackExchangeRedis(redis, "MsDemo-DataProtection-Keys");
+
+
+            context.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, AuthorizationMiddlewareResultHandler>();
+            context.Services.Replace(ServiceDescriptor.Singleton<IAbpAuthorizationExceptionHandler, AuthorizationExceptionHandler>());
+
         }
 
-        public override void OnApplicationInitialization(ApplicationInitializationContext context)
+    public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
 
