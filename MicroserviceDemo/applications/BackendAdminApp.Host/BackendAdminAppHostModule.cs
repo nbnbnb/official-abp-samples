@@ -67,6 +67,7 @@ namespace BackendAdminApp.Host
                 options.MenuContributors.Add(new BackendAdminAppMenuContributor(configuration));
             });
 
+            /*
             context.Services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = "Cookies";
@@ -95,6 +96,7 @@ namespace BackendAdminApp.Host
                     options.Scope.Add("TenantManagementService");
 
                 });
+            */
 
             context.Services.AddSwaggerGen(
                 options =>
