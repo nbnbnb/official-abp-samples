@@ -46,4 +46,10 @@
     <Content Remove="wwwroot\product-images\*.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="tempkey.jwk">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
