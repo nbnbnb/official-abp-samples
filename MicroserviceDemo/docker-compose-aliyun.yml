@@ -263,8 +263,6 @@ services:
       - Routes__2__DownstreamHostAndPorts__0__Port=80
       - Routes__2__DownstreamScheme=http
       - GlobalConfiguration__BaseUrl=http://backend-admin-app-gateway/
-      # 多余的？？？
-      - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
       - Seq__Url=${Seq_URL}
       - AuthServer__ValidIssuers__0=${Private_Authority_URL}
       - AuthServer__ValidIssuers__1=${Public_Authority_URL}
