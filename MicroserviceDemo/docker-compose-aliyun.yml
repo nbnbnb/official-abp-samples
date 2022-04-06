@@ -30,7 +30,7 @@ services:
       dockerfile: applications/BackendAdminApp.Host/Dockerfile
     volumes:
       - backend-admin-app-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+      - ${SSL_PATH}:/app/https:ro
     depends_on:
       - backend-admin-app-gateway
     environment:
