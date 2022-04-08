@@ -266,7 +266,7 @@ services:
       # 如果不加这个配置
       # 那么就调用 https://localhost:44315/api/identity/users/d3076216-3ca8-2b19-be45-3a030f1549bd/roles?api-version=1.0
       # 所以，实际上可以看作是应用内部，调用自己的远程接口（有点搞，为啥不就直接调用）
-      - RemoteServices__Default__BaseUrl=http://public-website-gateway/      
+      - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
       - GlobalConfiguration__BaseUrl=http://backend-admin-app-gateway/
       - Seq__Url=${Seq_URL}
       - AuthServer__ValidIssuers__0=${Private_Authority_URL}
