@@ -148,6 +148,7 @@ services:
       - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - ConnectionStrings__Blogging=${Mongo_URL}
+      - IdentityClients__Default__ClientSecret=${ClientSecret}
       - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
