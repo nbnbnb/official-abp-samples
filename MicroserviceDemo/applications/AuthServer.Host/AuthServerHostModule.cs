@@ -3,11 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 using MsDemo.Shared;
-using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.Elasticsearch;
 using StackExchange.Redis;
-using System;
 using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.Account.Web;
@@ -54,24 +50,6 @@ namespace AuthServer.Host
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             var configuration = context.Services.GetConfiguration();
-
-            Log.Logger = new LoggerConfiguration()
-                //.MinimumLevel.Debug()
-                //.MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                //.MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
-                .Enrich.WithProperty("Application", "AuthServer")
-                .Enrich.FromLogContext()
-                .WriteTo.Seq(configuration["Seq:Url"])
-                .WriteTo.File("Logs/logs.txt")
-                .WriteTo.Elasticsearch(
-                    new ElasticsearchSinkOptions(new Uri(configuration["ElasticSearch:Url"]))
-                    {
-                        AutoRegisterTemplate = true,
-                        AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
-                        IndexFormat = "msdemo-log-{0:yyyy.MM}"
-                    })
-                .CreateLogger();
-
 
             context.Services.AddAbpDbContext<AuthServerDbContext>(options =>
             {
