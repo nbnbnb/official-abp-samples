@@ -40,8 +40,6 @@ using Volo.Abp.Uow;
 using Volo.Abp.BlobStoring.FileSystem;
 using Volo.Abp.BlobStoring;
 using Microsoft.Extensions.Configuration;
-using Serilog;
-using Serilog.Sinks.Elasticsearch;
 
 namespace BloggingService.Host
 {
@@ -67,20 +65,6 @@ namespace BloggingService.Host
         {
             var configuration = context.Services.GetConfiguration();
             var hostingEnvironment = context.Services.GetHostingEnvironment();
-
-            Log.Logger = new LoggerConfiguration()
-                .Enrich.WithProperty("Application", "BloggingService")
-                .Enrich.FromLogContext()
-                .WriteTo.Seq(configuration["Seq:Url"])
-                .WriteTo.File("Logs/logs.txt")
-                .WriteTo.Elasticsearch(
-                    new ElasticsearchSinkOptions(new Uri(configuration["ElasticSearch:Url"]))
-                    {
-                        AutoRegisterTemplate = true,
-                        AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
-                        IndexFormat = "msdemo-log-{0:yyyy.MM}"
-                    })
-                .CreateLogger();
 
             Configure<AbpMultiTenancyOptions>(options =>
             {

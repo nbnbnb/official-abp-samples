@@ -24,8 +24,6 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Serilog;
-using Serilog.Sinks.Elasticsearch;
 
 namespace TenantManagementService.Host
 {
@@ -52,20 +50,6 @@ namespace TenantManagementService.Host
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             var configuration = context.Services.GetConfiguration();
-
-            Log.Logger = new LoggerConfiguration()
-                .Enrich.WithProperty("Application", "TenantManagementService")
-                .Enrich.FromLogContext()
-                .WriteTo.Seq(configuration["Seq:Url"])
-                .WriteTo.File("Logs/logs.txt")
-                .WriteTo.Elasticsearch(
-                    new ElasticsearchSinkOptions(new Uri(configuration["ElasticSearch:Url"]))
-                    {
-                        AutoRegisterTemplate = true,
-                        AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
-                        IndexFormat = "msdemo-log-{0:yyyy.MM}"
-                    })
-                .CreateLogger();
 
             Configure<AbpMultiTenancyOptions>(options =>
             {
