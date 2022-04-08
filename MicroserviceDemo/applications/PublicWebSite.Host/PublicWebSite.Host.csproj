@@ -99,10 +99,4 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="tempkey.jwk">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
