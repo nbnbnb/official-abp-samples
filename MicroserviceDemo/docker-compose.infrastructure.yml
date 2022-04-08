@@ -2,8 +2,13 @@ version: '3.7'
 
 services:
   
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server
+    volumes:
+      - dbdata:/var/opt/mssql
+
   mongodb:
-    image: mongo:4.4.10
+    image: mongo
 
   rabbitmq:
     image: 'rabbitmq:3-management-alpine'

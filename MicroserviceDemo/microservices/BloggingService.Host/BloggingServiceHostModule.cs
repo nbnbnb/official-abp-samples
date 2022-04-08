@@ -19,7 +19,7 @@ using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.Autofac;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.MySQL;
+using Volo.Abp.EntityFrameworkCore.SqlServer;
 using Volo.Abp.EventBus.RabbitMq;
 using Volo.Abp.Guids;
 using Volo.Abp.Http.Client.IdentityModel.Web;
@@ -39,6 +39,9 @@ using Volo.Blogging.MongoDB;
 using Volo.Abp.Uow;
 using Volo.Abp.BlobStoring.FileSystem;
 using Volo.Abp.BlobStoring;
+using Microsoft.Extensions.Configuration;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
 
 namespace BloggingService.Host
 {
@@ -46,7 +49,7 @@ namespace BloggingService.Host
         typeof(AbpAutofacModule),
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpEventBusRabbitMqModule),
-        typeof(AbpEntityFrameworkCoreMySQLModule),
+        typeof(AbpEntityFrameworkCoreSqlServerModule),
         typeof(AbpAuditLoggingEntityFrameworkCoreModule),
         typeof(AbpPermissionManagementEntityFrameworkCoreModule),
         typeof(AbpSettingManagementEntityFrameworkCoreModule),
@@ -56,9 +59,7 @@ namespace BloggingService.Host
         typeof(AbpHttpClientIdentityModelWebModule),
         typeof(AbpIdentityHttpApiClientModule),
         typeof(AbpAspNetCoreMultiTenancyModule),
-        typeof(AbpTenantManagementEntityFrameworkCoreModule),
-        typeof(AbpBlobStoringFileSystemModule),
-        typeof(AbpBlobStoringModule)
+        typeof(AbpTenantManagementEntityFrameworkCoreModule)
         )]
     public class BloggingServiceHostModule : AbpModule
     {
@@ -67,22 +68,37 @@ namespace BloggingService.Host
             var configuration = context.Services.GetConfiguration();
             var hostingEnvironment = context.Services.GetHostingEnvironment();
 
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.WithProperty("Application", "BloggingService")
+                .Enrich.FromLogContext()
+                .WriteTo.Seq(configuration["Seq:Url"])
+                .WriteTo.File("Logs/logs.txt")
+                .WriteTo.Elasticsearch(
+                    new ElasticsearchSinkOptions(new Uri(configuration["ElasticSearch:Url"]))
+                    {
+                        AutoRegisterTemplate = true,
+                        AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
+                        IndexFormat = "msdemo-log-{0:yyyy.MM}"
+                    })
+                .CreateLogger();
+
             Configure<AbpMultiTenancyOptions>(options =>
             {
                 options.IsEnabled = MsDemoConsts.IsMultiTenancyEnabled;
             });
 
             context.Services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(options =>
+                .AddJwtBearer(options =>
                 {
                     options.Authority = configuration["AuthServer:Authority"];
-                    options.ApiName = configuration["AuthServer:ApiName"];
+                    options.Audience = configuration["AuthServer:ApiName"];
                     options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
+                    options.TokenValidationParameters.ValidIssuers = configuration.GetSection("AuthServer:ValidIssuers").Get<string[]>();
                 });
 
             context.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Blogging Service API", Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Blogging Service API", Version = "v1"});
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });
@@ -94,7 +110,7 @@ namespace BloggingService.Host
 
             Configure<AbpDbContextOptions>(options =>
             {
-                options.UseMySQL();
+                options.UseSqlServer();
             });
 
             Configure<AbpBlobStoringOptions>(options =>

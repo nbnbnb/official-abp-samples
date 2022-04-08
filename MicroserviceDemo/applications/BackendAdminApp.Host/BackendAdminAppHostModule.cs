@@ -25,8 +25,11 @@ using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.Web;
 using Volo.Abp.UI.Navigation;
 using Volo.Blogging;
-using Volo.Abp.Account;
-using Volo.Abp.SettingManagement.Web;
+using Microsoft.AspNetCore.Authorization;
+using Volo.Abp.AspNetCore.ExceptionHandling;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
 
 namespace BackendAdminApp.Host
 {
@@ -37,7 +40,6 @@ namespace BackendAdminApp.Host
         typeof(AbpHttpClientIdentityModelWebModule),
         typeof(AbpIdentityHttpApiClientModule),
         typeof(AbpIdentityWebModule),
-        typeof(AbpSettingManagementWebModule),
         typeof(AbpTenantManagementHttpApiClientModule),
         typeof(AbpTenantManagementWebModule),
         typeof(BloggingApplicationContractsModule),
@@ -46,14 +48,28 @@ namespace BackendAdminApp.Host
         typeof(ProductManagementWebModule),
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
         typeof(AbpFeatureManagementHttpApiClientModule),
-        typeof(AbpIdentityApplicationModule),
-        typeof(AbpAccountApplicationModule)
+        typeof(AbpIdentityHttpApiModule),
+        typeof(AbpTenantManagementHttpApiModule)
         )]
-        public class BackendAdminAppHostModule : AbpModule
+    public class BackendAdminAppHostModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             var configuration = context.Services.GetConfiguration();
+
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.WithProperty("Application", "BackendAdminApp")
+                .Enrich.FromLogContext()
+                .WriteTo.Seq(configuration["Seq:Url"])
+                .WriteTo.File("Logs/logs.txt")
+                .WriteTo.Elasticsearch(
+                    new ElasticsearchSinkOptions(new Uri(configuration["ElasticSearch:Url"]))
+                    {
+                        AutoRegisterTemplate = true,
+                        AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
+                        IndexFormat = "msdemo-log-{0:yyyy.MM}"
+                    })
+                .CreateLogger();
 
             Configure<AbpLocalizationOptions>(options =>
             {
@@ -95,8 +111,9 @@ namespace BackendAdminApp.Host
                     options.Scope.Add("IdentityService");
                     options.Scope.Add("ProductService");
                     options.Scope.Add("TenantManagementService");
-                    
+
                 });
+
 
             context.Services.AddSwaggerGen(
                 options =>
@@ -111,11 +128,12 @@ namespace BackendAdminApp.Host
             });
 
             var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
-            context.Services.AddDataProtection()
-                .PersistKeysToStackExchangeRedis(redis, "MsDemo-DataProtection-Keys");
+            context.Services.AddDataProtection().PersistKeysToStackExchangeRedis(redis, "MsDemo-DataProtection-Keys");
+
+
         }
 
-        public override void OnApplicationInitialization(ApplicationInitializationContext context)
+    public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
 
@@ -123,7 +141,7 @@ namespace BackendAdminApp.Host
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
-            
+
             if (MsDemoConsts.IsMultiTenancyEnabled)
             {
                 app.UseMultiTenancy();

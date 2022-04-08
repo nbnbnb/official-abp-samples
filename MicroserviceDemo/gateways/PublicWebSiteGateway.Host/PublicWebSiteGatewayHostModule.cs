@@ -17,13 +17,16 @@ using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
 using Volo.Abp.Autofac;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.MySQL;
+using Volo.Abp.EntityFrameworkCore.SqlServer;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.Security.Claims;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Blogging;
+using Microsoft.Extensions.Configuration;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
 
 namespace PublicWebSiteGateway.Host
 {
@@ -31,7 +34,7 @@ namespace PublicWebSiteGateway.Host
         typeof(AbpAutofacModule),
         typeof(BloggingHttpApiModule),
         typeof(ProductManagementHttpApiModule),
-        typeof(AbpEntityFrameworkCoreMySQLModule),
+        typeof(AbpEntityFrameworkCoreSqlServerModule),
         typeof(AbpPermissionManagementEntityFrameworkCoreModule),
         typeof(AbpSettingManagementEntityFrameworkCoreModule),
         typeof(AbpAspNetCoreMvcUiMultiTenancyModule)
@@ -42,17 +45,32 @@ namespace PublicWebSiteGateway.Host
         {
             var configuration = context.Services.GetConfiguration();
 
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.WithProperty("Application", "PublicWebSiteGateway")
+                .Enrich.FromLogContext()
+                .WriteTo.Seq(configuration["Seq:Url"])
+                .WriteTo.File("Logs/logs.txt")
+                .WriteTo.Elasticsearch(
+                    new ElasticsearchSinkOptions(new Uri(configuration["ElasticSearch:Url"]))
+                    {
+                        AutoRegisterTemplate = true,
+                        AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
+                        IndexFormat = "msdemo-log-{0:yyyy.MM}"
+                    })
+                .CreateLogger();
+
             Configure<AbpMultiTenancyOptions>(options =>
             {
                 options.IsEnabled = MsDemoConsts.IsMultiTenancyEnabled;
             });
 
             context.Services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(options =>
+                .AddJwtBearer(options =>
                 {
                     options.Authority = configuration["AuthServer:Authority"];
-                    options.ApiName = configuration["AuthServer:ApiName"];
+                    options.Audience = configuration["AuthServer:ApiName"];
                     options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
+                    options.TokenValidationParameters.ValidIssuers = configuration.GetSection("AuthServer:ValidIssuers").Get<string[]>();
                 });
 
             context.Services.AddSwaggerGen(options =>
@@ -66,7 +84,7 @@ namespace PublicWebSiteGateway.Host
 
             Configure<AbpDbContextOptions>(options =>
             {
-                options.UseMySQL();
+                options.UseSqlServer();
             });
 
             context.Services.AddStackExchangeRedisCache(options =>

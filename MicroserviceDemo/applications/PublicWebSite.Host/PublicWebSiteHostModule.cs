@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using MsDemo.Shared;
 using ProductManagement;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
 using StackExchange.Redis;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Authentication.OAuth;
@@ -37,6 +39,20 @@ namespace PublicWebSite.Host
         {
             var configuration = context.Services.GetConfiguration();
 
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.WithProperty("Application", "PublicWebSite")
+                .Enrich.FromLogContext()
+                .WriteTo.Seq(configuration["Seq:Url"])
+                .WriteTo.File("Logs/logs.txt")
+                .WriteTo.Elasticsearch(
+                    new ElasticsearchSinkOptions(new Uri(configuration["ElasticSearch:Url"]))
+                    {
+                        AutoRegisterTemplate = true,
+                        AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
+                        IndexFormat = "msdemo-log-{0:yyyy.MM}"
+                    })
+                .CreateLogger();
+
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Languages.Add(new LanguageInfo("en", "en", "English"));
@@ -50,6 +66,11 @@ namespace PublicWebSite.Host
             Configure<AbpNavigationOptions>(options =>
             {
                 options.MenuContributors.Add(new PublicWebSiteMenuContributor());
+            });
+
+            Configure<AbpNavigationOptions>(options =>
+            {
+                options.MenuContributors.Add(new BackendAdminAppMenuContributor(configuration));
             });
 
             context.Services.AddAuthentication(options =>
@@ -76,7 +97,7 @@ namespace PublicWebSite.Host
                     options.Scope.Add("PublicWebSiteGateway");
                     options.Scope.Add("ProductService");
                     options.Scope.Add("BloggingService");
-                    
+
                 });
 
             context.Services.AddStackExchangeRedisCache(options =>
@@ -97,7 +118,7 @@ namespace PublicWebSite.Host
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
-            
+
             if (MsDemoConsts.IsMultiTenancyEnabled)
             {
                 app.UseMultiTenancy();

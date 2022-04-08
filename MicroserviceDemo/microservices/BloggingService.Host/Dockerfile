@@ -1,5 +1,4 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-RUN apt-get update && apt-get install -y libgdiplus
 WORKDIR /app
 EXPOSE 80
 
@@ -21,7 +20,7 @@ WORKDIR /app
 # Change timezone to local time
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN mkdir https
 
 COPY --from=publish /app/publish .
-RUN mkdir https
 ENTRYPOINT ["dotnet", "BloggingService.Host.dll"]

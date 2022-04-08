@@ -26,13 +26,14 @@ namespace ProductService.Host
                 .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
                 .Enrich.WithProperty("Application", "ProductService")
                 .Enrich.FromLogContext()
+                .WriteTo.Seq(configuration["Seq:Url"])
                 .WriteTo.File("Logs/logs.txt")
                 .WriteTo.Elasticsearch(
                     new ElasticsearchSinkOptions(new Uri(configuration["ElasticSearch:Url"]))
                     {
                         AutoRegisterTemplate = true,
                         AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
-                        IndexFormat = "ProductService-log-{0:yyyy.MM}"
+                        IndexFormat = "msdemo-log-{0:yyyy.MM}"
                     })
                 .CreateLogger();
 

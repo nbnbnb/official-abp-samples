@@ -6,20 +6,21 @@ services:
     image: 'registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-authserver-host'
     build:
       context: .
-      dockerfile: applications/AuthServer.Host/Dockerfile-ARM
+      dockerfile: applications/AuthServer.Host/Dockerfile
     volumes:
       - auth-server-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+      - ${SSL_PATH}:/app/https:ro
     environment:
-      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ElasticSearch__Url=${ES_URL}
+      - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
-      - Redis__Configuration=redis
-      - RabbitMQ__Connections__Default__HostName=rabbitmq
-      - RabbitMQ__Connections__Default__Port=5672
+      - ConnectionStrings__Default=${DB_MsDemo_Identity}
+      - Redis__Configuration=${Redis_URL}
+      - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
+      - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
+      - Seq__Url=${Seq_URL}
     ports:
       - 51511:443
 
@@ -30,21 +31,22 @@ services:
       dockerfile: applications/BackendAdminApp.Host/Dockerfile
     volumes:
       - backend-admin-app-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+      - ${SSL_PATH}:/app/https:ro
     depends_on:
       - backend-admin-app-gateway
     environment:
-      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ElasticSearch__Url=${ES_URL}
+      - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
-      - AuthServer__RequireHttpsMetadata=true
-      # Dynamic C# API Clients 的配置
-      # backend-admin-app-gateway 
+      - AuthServer__Authority=${Public_Authority_URL}
+      - AuthServer__RequireHttpsMetadata=${Public_Authority_RequireHttpsMetadata}
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
-      - Redis__Configuration=redis
+      - Redis__Configuration=${Redis_URL}
+      - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51512:443
   
@@ -55,24 +57,24 @@ services:
       dockerfile: applications/PublicWebSite.Host/Dockerfile
     volumes:
       - public-website-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+      - ${SSL_PATH}:/app/https:ro
     depends_on:
       - public-website-gateway
     environment:
-      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ElasticSearch__Url=${ES_URL}
+      - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=https://+:443;http://+:80
       # 没有密码，则设置为空，不能写成 ""
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      # 页面跳转的 URL，不能配置成内网模式 http://auth-server:51511
-      - AuthServer__Authority=https://seoul-arm.zhangjin.tk:51511
-      - AuthServer__RequireHttpsMetadata=true
-      # Dynamic C# API Clients 的配置
-      # public-website-gateway
-      # https://docs.abp.io/en/abp/latest/API/Dynamic-CSharp-API-Clients
+      # 页面跳转的 URL，这个是外网站点，不能配置成内网模式
+      - AuthServer__Authority=${Public_Authority_URL}
+      - AuthServer__RequireHttpsMetadata=${Public_Authority_RequireHttpsMetadata}
       - RemoteServices__Default__BaseUrl=http://public-website-gateway/
-      - Redis__Configuration=redis
+      - Redis__Configuration=${Redis_URL}
+      - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51513:443
 
@@ -83,19 +85,22 @@ services:
       dockerfile: microservices/IdentityService.Host/Dockerfile      
     volumes:
       - identity-service-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+      - ${SSL_PATH}:/app/https:ro
     environment:
-      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ElasticSearch__Url=${ES_URL}
+      - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
-      - Redis__Configuration=redis
-      - RabbitMQ__Connections__Default__HostName=rabbitmq
-      - RabbitMQ__Connections__Default__Port=5672
+      - AuthServer__Authority=${Private_Authority_URL}
+      - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
+      - ConnectionStrings__Default=${DB_MsDemo_Identity}
+      - Redis__Configuration=${Redis_URL}
+      - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
+      - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
+      - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51522:443
 
@@ -106,19 +111,22 @@ services:
       dockerfile: microservices/TenantManagementService.Host/Dockerfile
     volumes:
       - tenant-management-service-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+      - ${SSL_PATH}:/app/https:ro
     environment:
-      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ElasticSearch__Url=${ES_URL}
+      - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
+      - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
-      - Redis__Configuration=redis
-      - RabbitMQ__Connections__Default__HostName=rabbitmq
-      - RabbitMQ__Connections__Default__Port=5672
+      - ConnectionStrings__Default=${DB_MsDemo_Identity}
+      - Redis__Configuration=${Redis_URL}
+      - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
+      - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
+      - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51524:443
 
@@ -129,26 +137,29 @@ services:
       dockerfile: microservices/BloggingService.Host/Dockerfile
     volumes:
       - blogging-service-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+      - ${SSL_PATH}:/app/https:ro
     environment:
-      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ElasticSearch__Url=${ES_URL}
+      - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
-      - ConnectionStrings__Blogging=mongodb://admin:kkking@mongo:27017/MsDemo_Blogging?authSource=admin
-      - Redis__Configuration=redis
-      - RabbitMQ__Connections__Default__HostName=rabbitmq
-      - RabbitMQ__Connections__Default__Port=5672
-      # Dynamic C# API Clients 的配置
-      # internal-gateway
+      - AuthServer__Authority=${Private_Authority_URL}
+      - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
+      - ConnectionStrings__Default=${DB_MsDemo_Identity}
+      - ConnectionStrings__Blogging=${Mongo_URL}
+      - IdentityClients__Default__ClientSecret=${ClientSecret}
+      - Redis__Configuration=${Redis_URL}
+      - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
+      - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
+      # Dynamic C# API Clients 的默认访问地址
       - RemoteServices__Default__BaseUrl=http://internal-gateway/
-      # Dynamic C# API Clients 的授权信息配置
-      - IdentityClients__Authority=https://seoul-arm.zhangjin.tk:51511
-      - IdentityClients__RequireHttpsMetadata=true
+      # Dynamic C# API Clients 的授权信息配置 ？？？
+      - IdentityClients__Authority=${Private_Authority_URL}
+      - IdentityClients__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
+      - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51521:443
 
@@ -159,20 +170,23 @@ services:
       dockerfile: microservices/ProductService.Host/Dockerfile
     volumes:
       - product-service-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+      - ${SSL_PATH}:/app/https:ro
     environment:
-      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ElasticSearch__Url=${ES_URL}
+      - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
-      - ConnectionStrings__ProductManagement=Server=mariadb;Port=3306;Database=ABPDemo_ProductManagement;Uid=boot;Pwd=boot;
-      - Redis__Configuration=redis
-      - RabbitMQ__Connections__Default__HostName=rabbitmq
-      - RabbitMQ__Connections__Default__Port=5672
+      - AuthServer__Authority=${Private_Authority_URL}
+      - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
+      - ConnectionStrings__Default=${DB_MsDemo_Identity}
+      - ConnectionStrings__ProductManagement=${DB_MsDemo_ProductManagement}
+      - Redis__Configuration=${Redis_URL}
+      - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
+      - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
+      - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51523:443
 
@@ -183,22 +197,22 @@ services:
       dockerfile: gateways/InternalGateway.Host/Dockerfile
     volumes:
       - internal-gateway-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+      - ${SSL_PATH}:/app/https:ro
     depends_on:
       - identity-service
       - product-service
       - blogging-service
       - tenant-management-service
     environment:
-      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ElasticSearch__Url=${ES_URL}
+      - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
-      - Redis__Configuration=redis
+      - AuthServer__Authority=${Private_Authority_URL}
+      - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
+      - ConnectionStrings__Default=${DB_MsDemo_Identity}
+      - Redis__Configuration=${Redis_URL}
       - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
       - Routes__0__DownstreamHostAndPorts__0__Port=80
       - Routes__0__DownstreamScheme=http
@@ -211,10 +225,10 @@ services:
       - Routes__3__DownstreamHostAndPorts__0__Host=blogging-service
       - Routes__3__DownstreamHostAndPorts__0__Port=80
       - Routes__3__DownstreamScheme=http
-      # BaseUrl - Ocelot 的服务运行地址，要特别注意一下 BaseUrl 是我们外部暴露的 Url
-      # 比如我们的 Ocelot 运行在 http://localhost:5000，但是前面有一个 Nginx 绑定了域名 http://api.demo.com
-      # 那这里我们的 BaseUrl 就是 http://api.demo.com
-      - GlobalConfiguration__BaseUrl=https://seoul-arm.zhangjin.tk:51324
+      - GlobalConfiguration__BaseUrl=http://internal-gateway/
+      - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51324:443
 
@@ -225,21 +239,21 @@ services:
       dockerfile: gateways/BackendAdminAppGateway.Host/Dockerfile
     volumes:
       - backend-admin-app-gateway-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+      - ${SSL_PATH}:/app/https:ro
     depends_on:
       - identity-service
       - product-service
       - tenant-management-service
     environment:
-      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ElasticSearch__Url=${ES_URL}
+      - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
-      - Redis__Configuration=redis
+      - AuthServer__Authority=${Private_Authority_URL}
+      - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
+      - ConnectionStrings__Default=${DB_MsDemo_Identity}
+      - Redis__Configuration=${Redis_URL}
       - Routes__0__DownstreamHostAndPorts__0__Host=identity-service
       - Routes__0__DownstreamHostAndPorts__0__Port=80
       - Routes__0__DownstreamScheme=http
@@ -249,13 +263,14 @@ services:
       - Routes__2__DownstreamHostAndPorts__0__Host=product-service
       - Routes__2__DownstreamHostAndPorts__0__Port=80
       - Routes__2__DownstreamScheme=http
-      # BaseUrl - Ocelot 的服务运行地址，要特别注意一下 BaseUrl 是我们外部暴露的 Url
-      # 比如我们的 Ocelot 运行在 http://localhost:5000，但是前面有一个 Nginx 绑定了域名 http://api.demo.com
-      # 那这里我们的 BaseUrl 就是 http://api.demo.com
-      - GlobalConfiguration__BaseUrl=https://seoul-arm.zhangjin.tk:51531
-      # Dynamic C# API Clients 的配置
-      # Self
-      - RemoteServices__Default__BaseUrl=https://seoul-arm.zhangjin.tk:51531
+      # 如果不加这个配置
+      # 那么就调用 https://localhost:44315/api/identity/users/d3076216-3ca8-2b19-be45-3a030f1549bd/roles?api-version=1.0
+      # 所以，实际上可以看作是应用内部，调用自己的远程接口（有点搞，为啥不就直接调用）
+      - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
+      - GlobalConfiguration__BaseUrl=http://backend-admin-app-gateway/
+      - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51531:443
 
@@ -266,30 +281,30 @@ services:
       dockerfile: gateways/PublicWebSiteGateway.Host/Dockerfile
     volumes:
       - public-website-gateway-log:/app/Logs
-      - /home/ubuntu/docker-data/ssl/seoul-arm.zhangjin.tk:/app/https:ro
+      - ${SSL_PATH}:/app/https:ro
     depends_on:
       - blogging-service
       - product-service
     environment:
-      - ElasticSearch__Url=http://elastic:elastic...@elasticsearch:9200
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ElasticSearch__Url=${ES_URL}
+      - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
-      - AuthServer__Authority=http://auth-server:51511
-      - AuthServer__RequireHttpsMetadata=false
-      - ConnectionStrings__Default=Server=mariadb;Port=3306;Database=ABPDemo_Identity;Uid=boot;Pwd=boot;
-      - Redis__Configuration=redis
+      - AuthServer__Authority=${Private_Authority_URL}
+      - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
+      - ConnectionStrings__Default=${DB_MsDemo_Identity}
+      - Redis__Configuration=${Redis_URL}
       - Routes__0__DownstreamHostAndPorts__0__Host=product-service
       - Routes__0__DownstreamHostAndPorts__0__Port=80
       - Routes__0__DownstreamScheme=http
       - Routes__1__DownstreamHostAndPorts__0__Host=blogging-service
       - Routes__1__DownstreamHostAndPorts__0__Port=80
       - Routes__1__DownstreamScheme=http
-      # BaseUrl - Ocelot 的服务运行地址，要特别注意一下 BaseUrl 是我们外部暴露的 Url
-      # 比如我们的 Ocelot 运行在 http://localhost:5000，但是前面有一个 Nginx 绑定了域名 http://api.demo.com
-      # 那这里我们的 BaseUrl 就是 http://api.demo.com
-      - GlobalConfiguration__BaseUrl=https://seoul-arm.zhangjin.tk:51532
+      - GlobalConfiguration__BaseUrl=http://public-website-gateway/
+      - Seq__Url=${Seq_URL}
+      - AuthServer__ValidIssuers__0=${Private_Authority_URL}
+      - AuthServer__ValidIssuers__1=${Public_Authority_URL}
     ports:
       - 51532:443
 

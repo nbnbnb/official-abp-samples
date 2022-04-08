@@ -2,6 +2,13 @@ version: '3.7'
 
 services:
   
+  sqlserver:
+    environment:
+      - SA_PASSWORD=yourStrong(!)Password
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+
   mongodb:
     ports:
       - "27017:27017"
@@ -16,13 +23,17 @@ services:
       - "6379:6379"
 
   elasticsearch:
+    volumes:
+      - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
     environment:
-      - "ES_JAVA_OPTS=-Xms512m -Xmx1024m"
-      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ports:
       - "9200:9200"
 
   logstash:
+    volumes:
+      - ./elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./elk/logstash/pipeline:/usr/share/logstash/pipeline:ro
     environment:
       - "LS_JAVA_OPTS=-Xmx256m -Xms256m"
     ports:
@@ -30,10 +41,7 @@ services:
       - "5000"
 
   kibana:
+    volumes:
+      - ./elk/kibana/config/:/usr/share/kibana/config:ro
     ports:
       - 51510:5601
-
-networks:
-  default:
-    external:
-      name: dev-net  
