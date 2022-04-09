@@ -177,6 +177,28 @@ namespace AuthServer.Host
                     postLogoutRedirectUri: "https://public-website.zhangjin.tk:51513/signout-callback-oidc"
                 );
             }
+            else if (_env.EnvironmentName == "PVE")
+            {
+                // PVE Host
+                await CreateClientAsync(
+                    "backend-admin-app-client",
+                    commonScopes.Union(new[] { "BackendAdminAppGateway", "IdentityService", "ProductService", "TenantManagementService" }),
+                    new[] { "hybrid" },
+                    commonSecret,
+                    permissions: new[] { IdentityPermissions.Users.Default, "ProductManagement.Product" },
+                    redirectUri: "http://192.168.123.56:51512/signin-oidc",
+                    postLogoutRedirectUri: "http://192.168.123.56:51512/signout-callback-oidc"
+                );
+                // PVE Host
+                await CreateClientAsync(
+                    "public-website-client",
+                    commonScopes.Union(new[] { "PublicWebSiteGateway", "BloggingService", "ProductService" }),
+                    new[] { "hybrid" },
+                    commonSecret,
+                    redirectUri: "http://192.168.123.56:51513/signin-oidc",
+                    postLogoutRedirectUri: "http://192.168.123.56:51513/signout-callback-oidc"
+                );
+            }
             else
             {
                 await CreateClientAsync(
