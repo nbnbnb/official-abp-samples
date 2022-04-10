@@ -13,7 +13,7 @@ services:
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=${HOST_URLS}
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
@@ -37,7 +37,7 @@ services:
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=${HOST_URLS}
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Public_Authority_URL}
@@ -63,7 +63,7 @@ services:
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=${HOST_URLS}
       # 没有密码，则设置为空，不能写成 ""
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
@@ -89,7 +89,7 @@ services:
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=${HOST_URLS}
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
@@ -115,7 +115,7 @@ services:
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=${HOST_URLS}
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
@@ -141,7 +141,7 @@ services:
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=${HOST_URLS}
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
@@ -173,7 +173,7 @@ services:
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=${HOST_URLS}
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
@@ -205,7 +205,7 @@ services:
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=${HOST_URLS}
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
@@ -246,7 +246,7 @@ services:
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=${HOST_URLS}
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
@@ -287,7 +287,7 @@ services:
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=${HOST_URLS}
       - ASPNETCORE_Kestrel__Certificates__Default__Password=
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
