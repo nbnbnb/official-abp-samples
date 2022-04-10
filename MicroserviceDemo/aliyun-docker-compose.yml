@@ -14,8 +14,8 @@ services:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=${HOST_URLS}
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_Password}
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=${SSL_File}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
       - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
@@ -38,8 +38,8 @@ services:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=${HOST_URLS}
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_Password}
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=${SSL_File}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Public_Authority_URL}
       - AuthServer__RequireHttpsMetadata=${Public_Authority_RequireHttpsMetadata}
       - RemoteServices__Default__BaseUrl=http://backend-admin-app-gateway/
@@ -65,8 +65,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=${HOST_URLS}
       # 没有密码，则设置为空，不能写成 ""
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_Password}
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=${SSL_File}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       # 页面跳转的 URL，这个是外网站点，不能配置成内网模式
       - AuthServer__Authority=${Public_Authority_URL}
       - AuthServer__RequireHttpsMetadata=${Public_Authority_RequireHttpsMetadata}
@@ -90,8 +90,8 @@ services:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=${HOST_URLS}
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_Password}
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=${SSL_File}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
@@ -116,8 +116,8 @@ services:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=${HOST_URLS}
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_Password}
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=${SSL_File}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=false
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
@@ -142,8 +142,8 @@ services:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=${HOST_URLS}
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_Password}
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=${SSL_File}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
@@ -174,8 +174,8 @@ services:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=${HOST_URLS}
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_Password}
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=${SSL_File}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
@@ -206,8 +206,8 @@ services:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=${HOST_URLS}
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_Password}
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=${SSL_File}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
@@ -247,8 +247,8 @@ services:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=${HOST_URLS}
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_Password}
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=${SSL_File}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
@@ -288,8 +288,8 @@ services:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=${HOST_URLS}
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_Password}
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=${SSL_File}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/https/privkey.pfx
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
       - ConnectionStrings__Default=${DB_MsDemo_Identity}
