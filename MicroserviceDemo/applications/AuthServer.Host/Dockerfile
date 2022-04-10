@@ -22,5 +22,7 @@ ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN mkdir https
 
+RUN mkdir kkking
+
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "AuthServer.Host.dll"]

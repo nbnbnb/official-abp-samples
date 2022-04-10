@@ -10,6 +10,7 @@ services:
     volumes:
       - auth-server-log:/app/Logs
       - /home/ubuntu/docker-data/ssl:/app/https
+      - ssl:/app/kkking
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
