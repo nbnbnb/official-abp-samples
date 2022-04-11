@@ -288,7 +288,7 @@ services:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=${HOST_URLS}
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=${SSL_Password}
       - ASPNETCORE_Kestrel__Certificates__Default__Path=${SSL_File}
       - AuthServer__Authority=${Private_Authority_URL}
       - AuthServer__RequireHttpsMetadata=${Private_Authority_RequireHttpsMetadata}
