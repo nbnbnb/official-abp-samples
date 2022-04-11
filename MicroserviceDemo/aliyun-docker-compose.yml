@@ -325,5 +325,4 @@ volumes:
   internal-gateway-log:
   backend-admin-app-gateway-log:
   public-website-gateway-log:
-  ssl:
 
