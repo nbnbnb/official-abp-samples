@@ -1,6 +1,9 @@
 #!/bin/bash
 
 profile=${1}
+git reset --hard 
+git clean -df
+git pull
 
 docker pull registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-authserver-host
 docker-compose -f aliyun-docker-compose.yml --env-file .env.${profile} up --force-recreat -d auth-server
