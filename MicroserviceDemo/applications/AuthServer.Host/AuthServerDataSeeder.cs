@@ -186,8 +186,8 @@ namespace AuthServer.Host
                     new[] { "hybrid" },
                     commonSecret,
                     permissions: new[] { IdentityPermissions.Users.Default, "ProductManagement.Product" },
-                    redirectUri: "https://zhangjin.cf:51512/signin-oidc",
-                    postLogoutRedirectUri: "http://zhangjin.cf:51512/signout-callback-oidc"
+                    redirectUri: "https://backend-admin-app.zhangjin.cf:51512/signin-oidc",
+                    postLogoutRedirectUri: "http://backend-admin-app.zhangjin.cf:51512/signout-callback-oidc"
                 );
                 // PVE Host
                 await CreateClientAsync(
@@ -195,8 +195,8 @@ namespace AuthServer.Host
                     commonScopes.Union(new[] { "PublicWebSiteGateway", "BloggingService", "ProductService" }),
                     new[] { "hybrid" },
                     commonSecret,
-                    redirectUri: "https://zhangjin.cf:51513/signin-oidc",
-                    postLogoutRedirectUri: "http://zhangjin.cf:51513/signout-callback-oidc"
+                    redirectUri: "https://public-website.zhangjin.cf:51513/signin-oidc",
+                    postLogoutRedirectUri: "http://public-website.zhangjin.cf:51513/signout-callback-oidc"
                 );
             }
             else
