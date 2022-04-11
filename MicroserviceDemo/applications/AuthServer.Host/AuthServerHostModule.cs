@@ -105,15 +105,6 @@ namespace AuthServer.Host
                 options.ApplicationName = "AuthServer";
             });
 
-            context.Services.Configure<CookiePolicyOptions>(options =>
-            {
-                options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
-
-                options.OnAppendCookie = cookieContext => CheckSameSite(cookieContext.Context, cookieContext.CookieOptions);
-                options.OnDeleteCookie = cookieContext => CheckSameSite(cookieContext.Context, cookieContext.CookieOptions);
-
-            });
-
             //TODO: ConnectionMultiplexer.Connect call has problem since redis may not be ready when this service has started!
             var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
             context.Services.AddDataProtection()
@@ -151,16 +142,5 @@ namespace AuthServer.Host
 
         }
 
-        private static void CheckSameSite(HttpContext httpContext, CookieOptions options)
-        {
-            // ²Î¿¼ https://blog.csdn.net/lhwpc/article/details/120215379
-            if (options.SameSite == SameSiteMode.None)
-            {
-                if (httpContext.Request.Scheme != "https")
-                {
-                    options.SameSite = SameSiteMode.Unspecified;
-                }
-            }
-        }
     }
 }
