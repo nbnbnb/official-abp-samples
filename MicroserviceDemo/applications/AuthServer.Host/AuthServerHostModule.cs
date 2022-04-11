@@ -149,7 +149,6 @@ namespace AuthServer.Host
                 }
             });
 
-            app.UseCookiePolicy();
         }
 
         private static void CheckSameSite(HttpContext httpContext, CookieOptions options)
