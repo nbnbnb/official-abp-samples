@@ -20,6 +20,8 @@ services:
       - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
+      - ASPNETCORE_HOSTINGSTARTUPASSEMBLIES=SkyAPM.Agent.AspNetCore
+      - SKYWALKING__SERVICENAME=abp-authserver-host
       - Seq__Url=${Seq_URL}
     ports:
       - 51511:443
