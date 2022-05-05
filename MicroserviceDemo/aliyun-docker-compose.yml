@@ -32,8 +32,6 @@ services:
     volumes:
       - backend-admin-app-log:/app/Logs
       - ssl:/app/https
-    depends_on:
-      - backend-admin-app-gateway
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
@@ -58,8 +56,6 @@ services:
     volumes:
       - public-website-log:/app/Logs
       - ssl:/app/https
-    depends_on:
-      - public-website-gateway
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
@@ -197,11 +193,6 @@ services:
     volumes:
       - internal-gateway-log:/app/Logs
       - ssl:/app/https
-    depends_on:
-      - identity-service
-      - product-service
-      - blogging-service
-      - tenant-management-service
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
@@ -239,10 +230,6 @@ services:
     volumes:
       - backend-admin-app-gateway-log:/app/Logs
       - ssl:/app/https
-    depends_on:
-      - identity-service
-      - product-service
-      - tenant-management-service
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
@@ -284,9 +271,6 @@ services:
     volumes:
       - public-website-gateway-log:/app/Logs
       - ssl:/app/https
-    depends_on:
-      - blogging-service
-      - product-service
     environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
