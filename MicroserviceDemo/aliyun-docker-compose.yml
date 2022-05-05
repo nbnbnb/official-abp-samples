@@ -21,8 +21,8 @@ services:
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
       - Seq__Url=${Seq_URL}
-      - ABC_KKK=${Seq_URL}
-      - ABC_MMV=MMV
+      - ASPNETCORE_HOSTINGSTARTUPASSEMBLIES=SkyAPM.Agent.AspNetCore
+      - SKYWALKING__SERVICENAME=abp-authserver-host
     ports:
       - 51511:443
 
