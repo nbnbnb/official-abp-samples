@@ -65,7 +65,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=4RyWV1DQl0TlogKb2HNei2njgcEQBl3WhjR2A6gTfVnEcJrJ&param=auth-server,abp-authserver-host'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=bpHz5PVnlDa6thXF40zipDaVACa7xiIBYbxBwkUj15eR2sss&param=auth-server,abp-authserver-host'`
 
         echo '---End---'
 
@@ -123,7 +123,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=4RyWV1DQl0TlogKb2HNei2njgcEQBl3WhjR2A6gTfVnEcJrJ&param=backend-admin-app,abp-backendadminapp-host'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=bpHz5PVnlDa6thXF40zipDaVACa7xiIBYbxBwkUj15eR2sss&param=backend-admin-app,abp-backendadminapp-host'`
 
         echo '---End---'
 
@@ -181,7 +181,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=4RyWV1DQl0TlogKb2HNei2njgcEQBl3WhjR2A6gTfVnEcJrJ&param=public-website,abp-publicwebsite-host'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=bpHz5PVnlDa6thXF40zipDaVACa7xiIBYbxBwkUj15eR2sss&param=public-website,abp-publicwebsite-host'`
 
         echo '---End---'
 
@@ -239,7 +239,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=4RyWV1DQl0TlogKb2HNei2njgcEQBl3WhjR2A6gTfVnEcJrJ&param=identity-service,abp-identityservice-host'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=bpHz5PVnlDa6thXF40zipDaVACa7xiIBYbxBwkUj15eR2sss&param=identity-service,abp-identityservice-host'`
 
         echo '---End---'
 
@@ -297,7 +297,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=4RyWV1DQl0TlogKb2HNei2njgcEQBl3WhjR2A6gTfVnEcJrJ&param=tenant-management-service,abp-tenantmanagementservice-host'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=bpHz5PVnlDa6thXF40zipDaVACa7xiIBYbxBwkUj15eR2sss&param=tenant-management-service,abp-tenantmanagementservice-host'`
 
         echo '---End---'
 
@@ -355,7 +355,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=4RyWV1DQl0TlogKb2HNei2njgcEQBl3WhjR2A6gTfVnEcJrJ&param=blogging-service,abp-bloggingservice-host'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=bpHz5PVnlDa6thXF40zipDaVACa7xiIBYbxBwkUj15eR2sss&param=blogging-service,abp-bloggingservice-host'`
 
         echo '---End---'
 
@@ -413,7 +413,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=4RyWV1DQl0TlogKb2HNei2njgcEQBl3WhjR2A6gTfVnEcJrJ&param=product-service,abp-productservice-host'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=bpHz5PVnlDa6thXF40zipDaVACa7xiIBYbxBwkUj15eR2sss&param=product-service,abp-productservice-host'`
 
         echo '---End---'
 
@@ -471,7 +471,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=4RyWV1DQl0TlogKb2HNei2njgcEQBl3WhjR2A6gTfVnEcJrJ&param=internal-gateway,abp-internalgateway-host'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=bpHz5PVnlDa6thXF40zipDaVACa7xiIBYbxBwkUj15eR2sss&param=internal-gateway,abp-internalgateway-host'`
 
         echo '---End---'
 
@@ -529,7 +529,7 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=4RyWV1DQl0TlogKb2HNei2njgcEQBl3WhjR2A6gTfVnEcJrJ&param=backend-admin-app-gateway,abp-backendadminappgateway-host'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=bpHz5PVnlDa6thXF40zipDaVACa7xiIBYbxBwkUj15eR2sss&param=backend-admin-app-gateway,abp-backendadminappgateway-host'`
 
         echo '---End---'
 
@@ -587,6 +587,6 @@ jobs:
         # Write your commands here
         echo '--Start--'
 
-        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=4RyWV1DQl0TlogKb2HNei2njgcEQBl3WhjR2A6gTfVnEcJrJ&param=public-website-gateway,abp-publicwebsitegateway-host'`
+        echo `curl --location --request GET 'https://seoul-arm.zhangjin.tk:31515/hook?access_key=bpHz5PVnlDa6thXF40zipDaVACa7xiIBYbxBwkUj15eR2sss&param=public-website-gateway,abp-publicwebsitegateway-host'`
 
         echo '---End---'
