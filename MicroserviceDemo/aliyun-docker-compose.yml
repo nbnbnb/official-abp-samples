@@ -20,8 +20,6 @@ services:
       - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
-      - RabbitMQ__Connections__Default__UserName=${RabbitMQ_UserName}
-      - RabbitMQ__Connections__Default__Password =${RabbitMQ_Password}
       - Seq__Url=${Seq_URL}
       - ASPNETCORE_HOSTINGSTARTUPASSEMBLIES=SkyAPM.Agent.AspNetCore
       - SKYWALKING__SERVICENAME=abp-authserver-host
@@ -102,8 +100,6 @@ services:
       - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
-      - RabbitMQ__Connections__Default__UserName=${RabbitMQ_UserName}
-      - RabbitMQ__Connections__Default__Password =${RabbitMQ_Password}
       - Seq__Url=${Seq_URL}
       - AuthServer__ValidIssuers__0=${Private_Authority_URL}
       - AuthServer__ValidIssuers__1=${Public_Authority_URL}
@@ -132,8 +128,6 @@ services:
       - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
-      - RabbitMQ__Connections__Default__UserName=${RabbitMQ_UserName}
-      - RabbitMQ__Connections__Default__Password =${RabbitMQ_Password}
       - Seq__Url=${Seq_URL}
       - AuthServer__ValidIssuers__0=${Private_Authority_URL}
       - AuthServer__ValidIssuers__1=${Public_Authority_URL}
@@ -163,8 +157,6 @@ services:
       - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
-      - RabbitMQ__Connections__Default__UserName=${RabbitMQ_UserName}
-      - RabbitMQ__Connections__Default__Password =${RabbitMQ_Password}
       # Dynamic C# API Clients 的默认访问地址
       - RemoteServices__Default__BaseUrl=http://internal-gateway/
       # Dynamic C# API Clients 的授权信息配置 ？？？
@@ -199,8 +191,6 @@ services:
       - Redis__Configuration=${Redis_URL}
       - RabbitMQ__Connections__Default__HostName=${RabbitMQ_HostName}
       - RabbitMQ__Connections__Default__Port=${RabbitMQ_Port}
-      - RabbitMQ__Connections__Default__UserName=${RabbitMQ_UserName}
-      - RabbitMQ__Connections__Default__Password =${RabbitMQ_Password}
       - Seq__Url=${Seq_URL}
       - AuthServer__ValidIssuers__0=${Private_Authority_URL}
       - AuthServer__ValidIssuers__1=${Public_Authority_URL}
