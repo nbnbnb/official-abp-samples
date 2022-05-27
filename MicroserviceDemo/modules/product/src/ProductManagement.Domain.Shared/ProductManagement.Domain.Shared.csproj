@@ -6,8 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Volo.Abp.Localization" Version="5.2.1" />
-        <PackageReference Include="Volo.Abp.Ddd.Domain" Version="5.2.1" />
+        <PackageReference Include="Volo.Abp.Localization" Version="5.2.2" />
+        <PackageReference Include="Volo.Abp.Ddd.Domain" Version="5.2.2" />
     </ItemGroup>
 
 </Project>
