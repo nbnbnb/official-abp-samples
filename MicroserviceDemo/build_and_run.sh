@@ -3,7 +3,7 @@
 profile=${1}
 
 echo "profile: ${profile}"
-
+  
 git reset --hard 
 git clean -df
 git pull
