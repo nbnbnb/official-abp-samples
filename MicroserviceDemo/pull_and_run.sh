@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 profile=${1}
-/usr/bin/git pull
+sudo git pull
 
 docker pull registry.cn-hangzhou.aliyuncs.com/zhangjj/demo:abp-authserver-host
 docker-compose -f aliyun-docker-compose.yml --env-file .env.${profile} up -d auth-server
