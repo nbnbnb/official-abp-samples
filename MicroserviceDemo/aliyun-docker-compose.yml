@@ -10,7 +10,7 @@ services:
     volumes:
       - auth-server-log:/app/Logs
       - /home/ubuntu/ssl/zhangjin.tk:/app/https
-    environment: 
+    environment:
       - ElasticSearch__Url=${ES_URL}
       - ASPNETCORE_ENVIRONMENT=${ENV}
       - ASPNETCORE_URLS=${HOST_URLS}
