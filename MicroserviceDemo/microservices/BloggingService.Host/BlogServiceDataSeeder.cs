@@ -66,7 +66,7 @@ namespace BloggingService.Host
                     _guidGenerator.Create(),
                     abpBlog.Id,
                     "Introduction to ABP vNext",
-                    "/api/blogging/files/www/100d4c0445cbf55f687339ec8e656abb.jpg",
+                    "/blog-images/100d4c0445cbf55f687339ec8e656abb.jpg",
                     "introduction-to-abp-vnext"
                 )
                 {
